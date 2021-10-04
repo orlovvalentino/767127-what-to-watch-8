@@ -39,8 +39,6 @@ function MyList(): JSX.Element {
           <MovieItem/>
           <MovieItem/>
           <MovieItem/>
-          <MovieItem/>
-          <MovieItem/>
         </div>
       </section>
 

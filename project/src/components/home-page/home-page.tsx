@@ -123,6 +123,14 @@ function HomePage({moviePromo}:MoviePromo): JSX.Element {
             <MovieItem/>
             <MovieItem/>
             <MovieItem/>
+            <MovieItem/>
+            <MovieItem/>
+            <MovieItem/>
+            <MovieItem/>
+            <MovieItem/>
+            <MovieItem/>
+            <MovieItem/>
+            <MovieItem/>
           </div>
 
           <div className="catalog__more">
