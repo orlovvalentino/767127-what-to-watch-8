@@ -5,6 +5,7 @@ import MyList from '../my-list/my-list';
 import FilmPage from '../film-page/film-page';
 import AddReview from '../add-review/add-review';
 import Player from '../player/player';
+import NotFound from '../not-found/not-found';
 
 type MoviePromo = {
   moviePromo: {
@@ -35,6 +36,9 @@ function App({moviePromo}: MoviePromo): JSX.Element {
         </Route>
         <Route exact path="/player/:id">
           <Player/>
+        </Route>
+        <Route>
+          <NotFound/>
         </Route>
       </Switch>
     </BrowserRouter>

@@ -11,7 +11,10 @@ function NotFound():JSX.Element{
         </div>
 
         <h1 className="page-title user-page__title">404 NOT FOUND</h1>
-        <a href="/">Go to home page</a>
+        <p className="user-page__title" style={{transform: 'none'}}>
+          <a className="catalog__genres-link" href="/" style={{display:'inline',padding:0}}>Go to home page</a>
+        </p>
+
       </header>
 
       <footer className="page-footer">
