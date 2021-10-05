@@ -6,6 +6,7 @@ import FilmPage from '../film-page/film-page';
 import AddReview from '../add-review/add-review';
 import Player from '../player/player';
 import NotFound from '../not-found/not-found';
+import PrivateRoute from '../private-route/private-route';
 
 type MoviePromo = {
   moviePromo: {
@@ -25,9 +26,13 @@ function App({moviePromo}: MoviePromo): JSX.Element {
         <Route exact path="/login">
           <SignIn/>
         </Route>
-        <Route exact path="/mylist">
-          <MyList/>
-        </Route>
+        <PrivateRoute
+          exact
+          path="/mylist"
+          authorizationStatus={false}
+          render={() => <MyList />}
+        >
+        </PrivateRoute>
         <Route exact path="/films/:id">
           <FilmPage/>
         </Route>
