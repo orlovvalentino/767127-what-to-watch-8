@@ -1,3 +1,4 @@
+import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import HomePage from '../home-page/home-page';
 
 type MoviePromo = {
