@@ -11,6 +11,7 @@ function NotFound():JSX.Element{
         </div>
 
         <h1 className="page-title user-page__title">404 NOT FOUND</h1>
+        <a href="/">Go to home page</a>
       </header>
 
       <footer className="page-footer">
