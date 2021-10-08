@@ -1,4 +1,5 @@
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import {AppRoute} from '../../const';
 import HomePage from '../home-page/home-page';
 import SignIn from '../sign-in/sign-in';
 import MyList from '../my-list/my-list';
@@ -20,26 +21,26 @@ function App({moviePromo}: MoviePromo): JSX.Element {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/">
+        <Route exact path={AppRoute.Root}>
           <HomePage moviePromo={moviePromo} />
         </Route>
-        <Route exact path="/login">
+        <Route exact path={AppRoute.Login}>
           <SignIn/>
         </Route>
         <PrivateRoute
           exact
-          path="/mylist"
+          path={AppRoute.Mylist}
           authorizationStatus={false}
           render={() => <MyList />}
         >
         </PrivateRoute>
-        <Route exact path="/films/:id">
+        <Route exact path={AppRoute.FilmPage}>
           <FilmPage/>
         </Route>
-        <Route exact path="/films/:id/review">
+        <Route exact path={AppRoute.FilmAddReview}>
           <AddReview/>
         </Route>
-        <Route exact path="/player/:id">
+        <Route exact path={AppRoute.Player}>
           <Player/>
         </Route>
         <Route>
