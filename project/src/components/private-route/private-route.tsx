@@ -14,7 +14,7 @@ function PrivateRoute(props: PrivateRouteProps): JSX.Element {
       exact={exact}
       path={path}
       render={() => (
-        authorizationStatus === true
+        authorizationStatus
           ? render()
           : <Redirect to="/login" />
       )}
