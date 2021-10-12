@@ -8,16 +8,18 @@ import AddReview from '../add-review/add-review';
 import Player from '../player/player';
 import NotFound from '../not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
+import {Films} from '../../types/films';
 
 type MoviePromo = {
   moviePromo: {
     promoName: string,
     promoGenre: string,
     promoDate: string
-  }
+  },
+  films:Films[]
 }
 
-function App({moviePromo}: MoviePromo): JSX.Element {
+function App({moviePromo, films}: MoviePromo): JSX.Element {
   return (
     <BrowserRouter>
       <Switch>

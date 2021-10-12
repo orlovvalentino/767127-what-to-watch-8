@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
+import {films} from './mocks/films';
 
 const moviePromo = {
   promoName: 'The Grand Budapest Hotel',
@@ -10,6 +11,6 @@ const moviePromo = {
 
 ReactDOM.render(
   <React.StrictMode>
-    <App moviePromo={moviePromo}/>
+    <App moviePromo={moviePromo} films = {films}/>
   </React.StrictMode>,
   document.getElementById('root'));
