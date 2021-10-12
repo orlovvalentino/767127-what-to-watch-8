@@ -6,7 +6,7 @@ export const films: Films[] = [
     genre: 'drama',
     year: '2012',
     name: 'The Grand Budapest Hotel',
-    poster: 'the-grand-budapest-hotel-poster.jpg',
+    poster: './img/the-grand-budapest-hotel-poster.jpg',
     video: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
     director: 'Wes Anderson',
     starring: [
@@ -26,7 +26,7 @@ export const films: Films[] = [
     genre: 'triller',
     year: '2010',
     name: 'Fantastic Beasts: The Crimes of Grindelwald',
-    poster: 'fantastic-beasts-the-crimes-of-grindelwald.jpg',
+    poster: './img/fantastic-beasts-the-crimes-of-grindelwald.jpg',
     video: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
     director: 'Wes Anderson Jr',
     starring: [

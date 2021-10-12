@@ -1,14 +1,16 @@
 import MovieItem from '../movie-item/movie-item';
+import {Films} from '../../types/films';
 
 type MoviePromo = {
   moviePromo: {
     promoName: string,
-      promoGenre:string,
-      promoDate:string
-  }
+    promoGenre: string,
+    promoDate: string,
+  },
+  films:Films[]
 }
 
-function HomePage({moviePromo}:MoviePromo): JSX.Element {
+function HomePage({moviePromo, films}: MoviePromo): JSX.Element {
   return (
     <>
       <section className="film-card">
@@ -111,28 +113,8 @@ function HomePage({moviePromo}:MoviePromo): JSX.Element {
           </ul>
 
           <div className="catalog__films-list">
-            <MovieItem/>
-            <MovieItem/>
-            <MovieItem/>
-            <MovieItem/>
-            <MovieItem/>
-            <MovieItem/>
-            <MovieItem/>
-            <MovieItem/>
-            <MovieItem/>
-            <MovieItem/>
-            <MovieItem/>
-            <MovieItem/>
-            <MovieItem/>
-            <MovieItem/>
-            <MovieItem/>
-            <MovieItem/>
-            <MovieItem/>
-            <MovieItem/>
-            <MovieItem/>
-            <MovieItem/>
+            {films.map((film)=><MovieItem film={film} key={film.id}/>)}
           </div>
-
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
           </div>

@@ -1,6 +1,11 @@
 import MovieItem from '../movie-item/movie-item';
+import {Films} from '../../types/films';
 
-function FilmPage():JSX.Element{
+type FilmPage ={
+  films:Films[]
+}
+
+function FilmPage({films}:FilmPage):JSX.Element{
   return(
     <>
       <section className="film-card film-card--full">
@@ -119,10 +124,7 @@ function FilmPage():JSX.Element{
           <h2 className="catalog__title">More like this</h2>
 
           <div className="catalog__films-list">
-            <MovieItem/>
-            <MovieItem/>
-            <MovieItem/>
-            <MovieItem/>
+            {films.map((film)=><MovieItem film={film} key={film.id}/>)}
           </div>
         </section>
 

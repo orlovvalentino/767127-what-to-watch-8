@@ -1,6 +1,11 @@
 import MovieItem from '../movie-item/movie-item';
+import {Films} from '../../types/films';
 
-function MyList(): JSX.Element {
+type MyList ={
+  films:Films[]
+}
+
+function MyList({films}:MyList): JSX.Element {
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -30,15 +35,7 @@ function MyList(): JSX.Element {
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <div className="catalog__films-list">
-          <MovieItem/>
-          <MovieItem/>
-          <MovieItem/>
-          <MovieItem/>
-          <MovieItem/>
-          <MovieItem/>
-          <MovieItem/>
-          <MovieItem/>
-          <MovieItem/>
+          {films.map((film)=><MovieItem film={film} key={film.id}/>)}
         </div>
       </section>
 
