@@ -1,4 +1,4 @@
-import MovieItem from '../movie-item/movie-item';
+import ListMovies from '../list-movies/list-movies';
 import {Films} from '../../types/films';
 
 type FilmPage ={
@@ -124,7 +124,7 @@ function FilmPage({films}:FilmPage):JSX.Element{
           <h2 className="catalog__title">More like this</h2>
 
           <div className="catalog__films-list">
-            {films.map((film)=><MovieItem film={film} key={film.id}/>)}
+            <ListMovies films={films}/>
           </div>
         </section>
 

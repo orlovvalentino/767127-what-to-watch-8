@@ -1,4 +1,4 @@
-import MovieItem from '../movie-item/movie-item';
+import ListMovies from '../list-movies/list-movies';
 import {Films} from '../../types/films';
 
 type MyList ={
@@ -35,7 +35,7 @@ function MyList({films}:MyList): JSX.Element {
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <div className="catalog__films-list">
-          {films.map((film)=><MovieItem film={film} key={film.id}/>)}
+          <ListMovies films={films}/>
         </div>
       </section>
 
