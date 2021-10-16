@@ -13,7 +13,7 @@ function getCurrentFilm(filmsData: Films, props:any): any { // Вопрос!! к
 }
 
 function FilmPage(props: any): JSX.Element {
-  const film = getCurrentFilm(filmsData,props);
+  const film = getCurrentFilm(films, props);
 
   return (
     <>
