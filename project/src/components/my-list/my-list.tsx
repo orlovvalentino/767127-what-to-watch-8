@@ -1,11 +1,11 @@
 import ListMovies from '../list-movies/list-movies';
 import {Films} from '../../types/films';
 
-type MyList ={
-  films:Films[]
+type MyListType ={
+  films:Films
 }
 
-function MyList({films}:MyList): JSX.Element {
+function MyList({films}:MyListType): JSX.Element {
   return (
     <div className="user-page">
       <header className="page-header user-page__head">

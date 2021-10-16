@@ -7,7 +7,7 @@ type MoviePromo = {
     promoGenre: string,
     promoDate: string,
   },
-  films:Films[]
+  films:Films
 }
 
 function HomePage({moviePromo, films}: MoviePromo): JSX.Element {

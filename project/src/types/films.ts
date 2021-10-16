@@ -2,9 +2,17 @@ export type Rating = {
   ratingCount: number;
   ratingScore: string;
   ratingLevel: string,
+  comments: Comment[]
 }
-export type Films = {
+export type Comment = {
+  comment: string,
+  author: string,
+  datePublish: string,
+  rating: string
+}
+export type Film = {
   year: string;
+  duration: string,
   director: string;
   genre: string;
   name: string;
@@ -13,5 +21,7 @@ export type Films = {
   id: string;
   video: string;
   poster: string;
+  banner: string,
   ratings: Rating;
 }
+export type Films = Film[];
