@@ -26,21 +26,21 @@ export const films: Films = [
           comment:'Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director\'s funniest and most exquisitely designed films in years.',
           author:'Kate Muir',
           datePublish:'December 24, 2016',
-          rating:'8,9'
+          rating:'8,9',
         },
         {
           comment:'11Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director\'s funniest and most exquisitely designed films in years.',
           author:'11Kate Muir',
           datePublish:'11December 24, 2016',
-          rating:'7,9'
+          rating:'7,9',
         },
         {
           comment:'22Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director\'s funniest and most exquisitely designed films in years.',
           author:'22Kate Muir',
           datePublish:'22December 24, 2016',
-          rating:'6,9'
+          rating:'6,9',
         },
-      ]
+      ],
     },
   },
   {
@@ -66,45 +66,45 @@ export const films: Films = [
           comment:'Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director\'s funniest and most exquisitely designed films in years.',
           author:'Kate Muir',
           datePublish:'December 24, 2016',
-          rating:'8,9'
+          rating:'8,9',
         },
         {
           comment:'11Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director\'s funniest and most exquisitely designed films in years.',
           author:'11Kate Muir',
           datePublish:'11December 24, 2016',
-          rating:'7,9'
+          rating:'7,9',
         },
         {
           comment:'22Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director\'s funniest and most exquisitely designed films in years.',
           author:'22Kate Muir',
           datePublish:'22December 24, 2016',
-          rating:'6,9'
+          rating:'6,9',
         },
         {
           comment:'333Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director\'s funniest and most exquisitely designed films in years.',
           author:'33Kate Muir',
           datePublish:'33December 24, 2016',
-          rating:'3,9'
+          rating:'3,9',
         },
         {
           comment:'Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director\'s funniest and most exquisitely designed films in years.',
           author:'4Kate Muir',
           datePublish:'December 24, 2016',
-          rating:'8,9'
+          rating:'8,9',
         },
         {
           comment:'11Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director\'s funniest and most exquisitely designed films in years.',
           author:'55Kate Muir',
           datePublish:'11December 24, 2016',
-          rating:'7,9'
+          rating:'7,9',
         },
         {
           comment:'22Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director\'s funniest and most exquisitely designed films in years.',
           author:'66Kate Muir',
           datePublish:'22December 24, 2016',
-          rating:'6,9'
-        }
-      ]
+          rating:'6,9',
+        },
+      ],
     },
   },
 ];

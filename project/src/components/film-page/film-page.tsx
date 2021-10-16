@@ -7,16 +7,13 @@ import ListMovies from '../list-movies/list-movies';
 
 import {Link} from 'react-router-dom';
 
-type FilmPageType = {
-  films: Films
-}
-function getCurrentFilm(films: Films, props:any): any { // Вопрос!! как сменить типы с any на нормальные
+function getCurrentFilm(filmsData: Films, props:any): any { // Вопрос!! как сменить типы с any на нормальные
   const id = props.match.params.id;
-  return films.find((item) => item.id === id);
+  return filmsData.find((item) => item.id === id);
 }
 
 function FilmPage(props: any): JSX.Element {
-  const film = getCurrentFilm(films,props);
+  const film = getCurrentFilm(filmsData,props);
 
   return (
     <>

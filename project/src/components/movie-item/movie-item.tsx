@@ -11,8 +11,8 @@ function MovieItem({onHoverLeave,onHover,film}:MovieItemProps):JSX.Element{
   const {id,name,poster}=film;
   return(
     <article className="small-film-card catalog__films-card"
-             onMouseEnter={onHover}
-             onMouseLeave={onHoverLeave}
+      onMouseEnter={onHover}
+      onMouseLeave={onHoverLeave}
     >
       <div className="small-film-card__image">
         <img src={poster} alt={name} width="280" height="175"/>
