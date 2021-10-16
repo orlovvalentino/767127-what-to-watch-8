@@ -4,6 +4,7 @@ import {films} from '../../mocks/films';
 import {Film, Films} from '../../types/films';
 // components
 import Header from '../header/header';
+import { useState } from 'react';
 
 function getCurrentFilm(films: Films, props:any): any {
     const id = props.match.params.id;
@@ -12,7 +13,10 @@ function getCurrentFilm(films: Films, props:any): any {
 
 function AddReview(props:any): JSX.Element {
   const film = getCurrentFilm(films,props);
-
+  const [comment, setComment] = useState('');
+  function handleChange(event:any) { // Вопрос!! как сменить типы с any на нормальные
+    setComment(event.target.value);
+  }
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
@@ -68,7 +72,7 @@ function AddReview(props:any): JSX.Element {
           </div>
 
           <div className="add-review__text">
-            <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text">
+            <textarea onChange={handleChange} className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text">
             </textarea>
             <div className="add-review__submit">
               <button className="add-review__btn" type="submit">Post</button>
