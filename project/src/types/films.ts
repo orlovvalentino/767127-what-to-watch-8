@@ -1,27 +1,20 @@
-export type Rating = {
-  ratingCount: number;
-  ratingScore: string;
-  ratingLevel: string,
-  comments: Comment[]
-}
-export type Comment = {
-  comment: string,
-  author: string,
-  datePublish: string,
-  rating: string
-}
 export type Film = {
-  year: string;
-  duration: string,
-  director: string;
-  genre: string;
-  name: string;
-  starring: string[];
-  description: string;
-  id: string;
-  video: string;
-  poster: string;
-  banner: string,
-  ratings: Rating;
+  id: number,
+  name: string,
+  poster_image: string,
+  preview_image: string,
+  background_image: string,
+  background_color: string,
+  video_link: string,
+  preview_video_link: string,
+  description: string,
+  rating: number,
+  scores_count: number,
+  director: string,
+  starring: string[],
+  run_time:number,
+  genre:string,
+  released:number,
+  is_favorite:boolean
 }
 export type Films = Film[];
