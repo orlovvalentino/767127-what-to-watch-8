@@ -1,26 +1,48 @@
-import {films} from '../../mocks/films';
-
 import {Films} from '../../types/films';
+
+import {getCurrentFilm} from '../../tools';
+
+import {useParams} from 'react-router-dom';
 
 import Header from '../header/header';
 import ListMovies from '../list-movies/list-movies';
 
 import {Link} from 'react-router-dom';
 
-function getCurrentFilm(filmsData: Films, props:any): any { // Вопрос!! как сменить типы с any на нормальные
-  const id = props.match.params.id;
-  return filmsData.find((item) => item.id === id);
+type PropsType = {
+  films: Films
+}
+function ratingGrade(rating:number){
+
+  switch (true) {
+    case rating >= 0 && rating < 3:
+      return `Bad`;
+      break;
+    case rating >= 3 && rating < 5:
+      return `Normal`;
+      break;
+    case rating >= 5 && rating < 8:
+      return `Good`;
+      break;
+    case rating >= 8 && rating < 10:
+      return `Very good`;
+      break;
+    default:
+      return `Awesome`;
+  }
 }
 
-function FilmPage(props: any): JSX.Element {
-  const film = getCurrentFilm(films, props);
+function FilmPage({films}: PropsType): JSX.Element {
+  const {id} = useParams<{id?: string}>();
+  const film = getCurrentFilm(films, id);
+  const grade = ratingGrade(film.rating)
 
   return (
     <>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src={film.banner} alt={film.name} />
+            <img src={film.background_image} alt={film.name} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -32,7 +54,7 @@ function FilmPage(props: any): JSX.Element {
               <h2 className="film-card__title">{film.name}</h2>
               <p className="film-card__meta">
                 <span className="film-card__genre">{film.genre}</span>
-                <span className="film-card__year">{film.year}</span>
+                <span className="film-card__year">{film.released}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -57,7 +79,7 @@ function FilmPage(props: any): JSX.Element {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src={film.poster} alt={film.name} width="218" height="327" />
+              <img src={film.poster_image} alt={film.name} width="218" height="327" />
             </div>
 
             <div className="film-card__desc">
@@ -76,10 +98,10 @@ function FilmPage(props: any): JSX.Element {
               </nav>
 
               <div className="film-rating">
-                <div className="film-rating__score">{film.ratings.ratingScore}</div>
+                <div className="film-rating__score">{film.rating.toString().replace(".", ",")}</div>
                 <p className="film-rating__meta">
-                  <span className="film-rating__level">{film.ratings.ratingLevel}</span>
-                  <span className="film-rating__count">{film.ratings.ratingCount} ratings</span>
+                  <span className="film-rating__level">{grade}</span>
+                  <span className="film-rating__count">{film.scores_count} ratings</span>
                 </p>
               </div>
 
