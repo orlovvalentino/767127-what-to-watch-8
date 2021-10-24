@@ -1,28 +1,25 @@
-import ListMovies from '../list-movies/list-movies';
-import {Films} from '../../types/films';
+import {Films, Film} from '../../types/films';
 
-type MoviePromo = {
-  moviePromo: {
-    promoName: string,
-    promoGenre: string,
-    promoDate: string,
-  },
+import ListMovies from '../list-movies/list-movies';
+
+type PropsType = {
+  moviePromo: Film,
   films:Films
 }
 
-function HomePage({moviePromo, films}: MoviePromo): JSX.Element {
+function HomePage({moviePromo, films}: PropsType): JSX.Element {
   return (
     <>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt={moviePromo.promoName}/>
+          <img src="img/bg-the-grand-budapest-hotel.jpg" alt={moviePromo.name}/>
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
 
         <header className="page-header film-card__head">
           <div className="logo">
-            <a className="logo__link">
+            <a className="logo__link" href="/home">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
@@ -36,7 +33,7 @@ function HomePage({moviePromo, films}: MoviePromo): JSX.Element {
               </div>
             </li>
             <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
+              <a className="user-block__link" href="/signout" >Sign out</a>
             </li>
           </ul>
         </header>
@@ -50,10 +47,10 @@ function HomePage({moviePromo, films}: MoviePromo): JSX.Element {
               />
             </div>
             <div className="film-card__desc">
-              <h2 className="film-card__title">{moviePromo.promoName}</h2>
+              <h2 className="film-card__title">{moviePromo.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{moviePromo.promoGenre}</span>
-                <span className="film-card__year">{moviePromo.promoDate}</span>
+                <span className="film-card__genre">{moviePromo.genre}</span>
+                <span className="film-card__year">{moviePromo.released}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -81,34 +78,34 @@ function HomePage({moviePromo, films}: MoviePromo): JSX.Element {
 
           <ul className="catalog__genres-list">
             <li className="catalog__genres-item catalog__genres-item--active">
-              <a href="#" className="catalog__genres-link">All genres</a>
+              <a href="/genres" className="catalog__genres-link">All genres</a>
             </li>
             <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Comedies</a>
+              <a href="/сomedies" className="catalog__genres-link">Comedies</a>
             </li>
             <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Crime</a>
+              <a href="/сrime" className="catalog__genres-link">Crime</a>
             </li>
             <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Documentary</a>
+              <a href="/documentary" className="catalog__genres-link">Documentary</a>
             </li>
             <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Dramas</a>
+              <a href="/dramas" className="catalog__genres-link">Dramas</a>
             </li>
             <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Horror</a>
+              <a href="/horror" className="catalog__genres-link">Horror</a>
             </li>
             <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Kids & Family</a>
+              <a href="/kids-family" className="catalog__genres-link">Kids & Family</a>
             </li>
             <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Romance</a>
+              <a href="/romance" className="catalog__genres-link">Romance</a>
             </li>
             <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Sci-Fi</a>
+              <a href="/sci-fi" className="catalog__genres-link">Sci-Fi</a>
             </li>
             <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Thrillers</a>
+              <a href="/thrillers" className="catalog__genres-link">Thrillers</a>
             </li>
           </ul>
 
@@ -122,7 +119,7 @@ function HomePage({moviePromo, films}: MoviePromo): JSX.Element {
 
         <footer className="page-footer">
           <div className="logo">
-            <a className="logo__link logo__link--light">
+            <a className="logo__link logo__link--light" href="/home">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>

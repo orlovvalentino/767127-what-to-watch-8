@@ -1,28 +1,24 @@
 import { useState } from 'react';
+
 import {Films,Film} from '../../types/films';
+
 import MovieItem from '../movie-item/movie-item';
 
-type ListMoviess ={
+type PropsType ={
   films:Films
 }
 
-function ListMovies({films}:ListMoviess): JSX.Element {
-  const [currentFilm, setCurrentFilm] = useState('');
+function ListMovies({films}:PropsType): JSX.Element {
+  const [,setCurrentFilm] = useState('');
   return (
     <>
-      {films.map((film:Film)=> {
-        (
-          <>
-            <pre>{currentFilm}</pre>
-            <MovieItem
-              key={film.id}
-              onHoverLeave={() => setCurrentFilm('')}
-              onHover={() => setCurrentFilm(film.id)} film={film}
-            />
-          </>
-
-        );
-      })};
+      {films.map((film:Film)=>(
+        <MovieItem key={film.id}
+          onHoverLeave={() => setCurrentFilm('')}
+          onHover={() => setCurrentFilm(film.id.toString())}
+          film={film}
+        />
+      ))};
     </>
   );
 }

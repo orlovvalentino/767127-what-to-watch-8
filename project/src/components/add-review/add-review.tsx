@@ -1,21 +1,22 @@
-// mocks
-import {films} from '../../mocks/films';
-// types
-import {Film, Films} from '../../types/films';
-// components
-import Header from '../header/header';
 import {useState} from 'react';
+import {useParams} from 'react-router-dom';
 
-function getCurrentFilm(filmsData: Films, props: any): any {
-  const id = props.match.params.id;
-  return filmsData.find((item: Film) => item.id === id);
+import {Films} from '../../types/films';
+
+import {getCurrentFilm} from '../../tools';
+
+import Header from '../header/header';
+
+type PropsType = {
+  films: Films
 }
 
-function AddReview(props: any): JSX.Element {
-  const film = getCurrentFilm(films, props);
-  const [comment, setComment] = useState('');
+function AddReview({films}: PropsType): JSX.Element {
+  const {id} = useParams<{id?: string}>();
+  const film = getCurrentFilm(films, id);
+  const [, setComment] = useState('');
 
-  function handleChange(event: any) { // Вопрос!! как сменить типы с any на нормальные
+  function handleChangeComment(event: React.ChangeEvent<HTMLTextAreaElement>) {
     setComment(event.target.value);
   }
 
@@ -23,7 +24,7 @@ function AddReview(props: any): JSX.Element {
     <section className="film-card film-card--full">
       <div className="film-card__header">
         <div className="film-card__bg">
-          <img src={film['banner']} alt={film['name']}/>
+          <img src={film.backgroundImage} alt={film.name}/>
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -31,7 +32,7 @@ function AddReview(props: any): JSX.Element {
         <Header/>
 
         <div className="film-card__poster film-card__poster--small">
-          <img src={film['poster']} alt={film['name']} width="218" height="327"/>
+          <img src={film.posterImage} alt={film.name} width="218" height="327"/>
         </div>
       </div>
 
@@ -72,11 +73,10 @@ function AddReview(props: any): JSX.Element {
           </div>
 
           <div className="add-review__text">
-            <textarea onChange={handleChange} className="add-review__textarea" name="review-text" id="review-text"
+            <textarea onChange={handleChangeComment} className="add-review__textarea" name="review-text" id="review-text"
               placeholder="Review text"
             >
             </textarea>
-            <pre>{comment}</pre>
             <div className="add-review__submit">
               <button className="add-review__btn" type="submit">Post</button>
             </div>

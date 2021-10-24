@@ -12,21 +12,16 @@ import PrivateRoute from '../private-route/private-route';
 import {Films} from '../../types/films';
 import FilmPageReview from '../film-page-review/film-page-review';
 
-type MainType = {
-  moviePromo: {
-    promoName: string,
-    promoGenre: string,
-    promoDate: string
-  },
+type PropsType = {
   films:Films
 }
 
-function App({moviePromo, films}: MainType): JSX.Element {
+function App({films}: PropsType): JSX.Element {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.Root}>
-          <HomePage moviePromo={moviePromo} films={films} />
+          <HomePage moviePromo={films[0]} films={films} />
         </Route>
         <Route exact path={AppRoute.Login}>
           <SignIn/>
@@ -38,10 +33,18 @@ function App({moviePromo, films}: MainType): JSX.Element {
           render={() => <MyList films={films}/>}
         >
         </PrivateRoute>
-        <Route exact path={AppRoute.FilmPage} component={FilmPage} />
-        <Route exact path={AppRoute.FilmPageDetails} component={FilmPageDetails} />
-        <Route exact path={AppRoute.FilmPageReview} component={FilmPageReview} />
-        <Route exact path={AppRoute.FilmAddReview} component={AddReview} />
+        <Route exact path={AppRoute.FilmPage}>
+          <FilmPage films={films} />
+        </Route>
+        <Route exact path={AppRoute.FilmPageDetails}>
+          <FilmPageDetails films={films}/>
+        </Route>
+        <Route exact path={AppRoute.FilmPageReview}>
+          <FilmPageReview films={films}/>
+        </Route>
+        <Route exact path={AppRoute.FilmAddReview}>
+          <AddReview films={films}/>
+        </Route>
         <Route exact path={AppRoute.Player}>
           <Player/>
         </Route>

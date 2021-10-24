@@ -19,7 +19,7 @@ export const comments: Comments =[
     },
     'rating': 2.9,
     'comment': 'Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director\'s funniest and most exquisitely designed movies in years.',
-    'date': '2019-05-08T14:13:56.569Z',
+    'date': '2019-01-01T14:13:56.569Z',
   },
   {
     'id': 3,
@@ -29,7 +29,7 @@ export const comments: Comments =[
     },
     'rating': 3.9,
     'comment': 'Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director\'s funniest and most exquisitely designed movies in years.',
-    'date': '2019-05-08T14:13:56.569Z',
+    'date': '2019-02-22T14:13:56.569Z',
   },
   {
     'id': 4,
@@ -39,7 +39,7 @@ export const comments: Comments =[
     },
     'rating': 4.9,
     'comment': 'Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director\'s funniest and most exquisitely designed movies in years.',
-    'date': '2019-05-08T14:13:56.569Z',
+    'date': '2019-12-30T14:13:56.569Z',
   },
   {
     'id': 5,
@@ -49,6 +49,6 @@ export const comments: Comments =[
     },
     'rating': 5.9,
     'comment': 'Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director\'s funniest and most exquisitely designed movies in years.',
-    'date': '2019-05-08T14:13:56.569Z',
+    'date': '2001-09-11T14:13:56.569Z',
   },
 ];
