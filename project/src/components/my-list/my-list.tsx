@@ -1,6 +1,11 @@
-import MovieItem from '../movie-item/movie-item';
+import ListMovies from '../list-movies/list-movies';
+import {Films} from '../../types/films';
 
-function MyList(): JSX.Element {
+type MyListType ={
+  films:Films
+}
+
+function MyList({films}:MyListType): JSX.Element {
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -21,7 +26,7 @@ function MyList(): JSX.Element {
             </div>
           </li>
           <li className="user-block__item">
-            <a className="user-block__link">Sign out</a>
+            <a href="/signout" className="user-block__link">Sign out</a>
           </li>
         </ul>
       </header>
@@ -30,15 +35,7 @@ function MyList(): JSX.Element {
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <div className="catalog__films-list">
-          <MovieItem/>
-          <MovieItem/>
-          <MovieItem/>
-          <MovieItem/>
-          <MovieItem/>
-          <MovieItem/>
-          <MovieItem/>
-          <MovieItem/>
-          <MovieItem/>
+          <ListMovies films={films}/>
         </div>
       </section>
 

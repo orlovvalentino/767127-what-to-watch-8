@@ -1,9 +1,27 @@
-function Player():JSX.Element{
+import {Films} from '../../types/films';
+
+import {useParams,useHistory} from 'react-router-dom';
+
+import {getCurrentFilm} from '../../tools';
+
+type PropsType = {
+  films: Films
+}
+
+function Player({films}: PropsType):JSX.Element{
+  const history = useHistory();
+  const {id} = useParams<{id?: string}>();
+  const film = getCurrentFilm(films, id);
   return(
     <div className="player">
-      <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
+      <video src="#" className="player__video" poster={film.posterImage}></video>
 
-      <button type="button" className="player__exit">Exit</button>
+      <button
+        type="button"
+        className="player__exit"
+        onClick={() => {history.goBack();}}
+      >Exit
+      </button>
 
       <div className="player__controls">
         <div className="player__controls-row">
@@ -11,7 +29,7 @@ function Player():JSX.Element{
             <progress className="player__progress" value="30" max="100"></progress>
             <div className="player__toggler" style={{left: '30%'}}>Toggler</div>
           </div>
-          <div className="player__time-value">1:30:29</div>
+          <div className="player__time-value">{new Date(film.runTime*60 * 1000).toISOString().substr(11, 8)}</div>
         </div>
 
         <div className="player__controls-row">

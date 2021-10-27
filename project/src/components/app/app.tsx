@@ -8,21 +8,19 @@ import AddReview from '../add-review/add-review';
 import Player from '../player/player';
 import NotFound from '../not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
+import {Films} from '../../types/films';
 
-type MoviePromo = {
-  moviePromo: {
-    promoName: string,
-    promoGenre: string,
-    promoDate: string
-  }
+
+type PropsType = {
+  films:Films
 }
 
-function App({moviePromo}: MoviePromo): JSX.Element {
+function App({films}: PropsType): JSX.Element {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.Root}>
-          <HomePage moviePromo={moviePromo} />
+          <HomePage moviePromo={films[0]} films={films} />
         </Route>
         <Route exact path={AppRoute.Login}>
           <SignIn/>
@@ -30,18 +28,19 @@ function App({moviePromo}: MoviePromo): JSX.Element {
         <PrivateRoute
           exact
           path={AppRoute.Mylist}
-          authorizationStatus={false}
-          render={() => <MyList />}
+          authorizationStatus
+          render={() => <MyList films={films}/>}
         >
         </PrivateRoute>
-        <Route exact path={AppRoute.FilmPage}>
-          <FilmPage/>
-        </Route>
         <Route exact path={AppRoute.FilmAddReview}>
-          <AddReview/>
+          <AddReview films={films}/>
         </Route>
+        <Route  path={AppRoute.FilmPage}>
+          <FilmPage films={films} />
+        </Route>
+
         <Route exact path={AppRoute.Player}>
-          <Player/>
+          <Player films={films}/>
         </Route>
         <Route>
           <NotFound/>

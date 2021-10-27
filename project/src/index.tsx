@@ -1,15 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
-
-const moviePromo = {
-  promoName: 'The Grand Budapest Hotel',
-  promoGenre: 'dram',
-  promoDate: '2014',
-};
+import {films} from './mocks/films';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App moviePromo={moviePromo}/>
+    <App films = {films}/>
   </React.StrictMode>,
   document.getElementById('root'));
