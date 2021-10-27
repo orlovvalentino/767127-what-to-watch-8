@@ -40,7 +40,7 @@ function App({films}: PropsType): JSX.Element {
         </Route>
 
         <Route exact path={AppRoute.Player}>
-          <Player/>
+          <Player films={films}/>
         </Route>
         <Route>
           <NotFound/>
