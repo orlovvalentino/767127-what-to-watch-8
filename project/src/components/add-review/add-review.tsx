@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState,ChangeEvent} from 'react';
 import {useParams} from 'react-router-dom';
 
 import {Films} from '../../types/films';
@@ -16,7 +16,7 @@ function AddReview({films}: PropsType): JSX.Element {
   const film = getCurrentFilm(films, id);
   const [, setComment] = useState('');
 
-  function handleChangeComment(event: React.ChangeEvent<HTMLTextAreaElement>) {
+  function handleChangeComment(event: ChangeEvent<HTMLTextAreaElement>) {
     setComment(event.target.value);
   }
 

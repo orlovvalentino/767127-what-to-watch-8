@@ -32,12 +32,13 @@ function App({films}: PropsType): JSX.Element {
           render={() => <MyList films={films}/>}
         >
         </PrivateRoute>
-        <Route  path={AppRoute.FilmPage}>
-          <FilmPage films={films} />
-        </Route>
         <Route exact path={AppRoute.FilmAddReview}>
           <AddReview films={films}/>
         </Route>
+        <Route  path={AppRoute.FilmPage}>
+          <FilmPage films={films} />
+        </Route>
+
         <Route exact path={AppRoute.Player}>
           <Player/>
         </Route>
