@@ -2,7 +2,7 @@ import {Films} from '../../types/films';
 
 import {getCurrentFilm} from '../../tools';
 
-import {Route,useParams, NavLink} from 'react-router-dom';
+import {Route, NavLink, useParams, useRouteMatch, useHistory} from 'react-router-dom';
 
 import Header from '../header/header';
 import FilmPageOverview from '../film-page-overview/film-page-overview';
@@ -18,6 +18,8 @@ type PropsType = {
 
 
 function FilmPage({films}: PropsType): JSX.Element {
+  const history = useHistory();
+  const { url,path } = useRouteMatch();
   const {id} = useParams<{id?: string}>();
   const film = getCurrentFilm(films, id);
 
@@ -42,7 +44,11 @@ function FilmPage({films}: PropsType): JSX.Element {
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
+                <button
+                  className="btn btn--play film-card__button"
+                  type="button"
+                  onClick={() => {history.push(`/player/${film.id}`);}}
+                >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
@@ -54,7 +60,7 @@ function FilmPage({films}: PropsType): JSX.Element {
                   </svg>
                   <span>My list</span>
                 </button>
-                <Link className="btn film-card__button" to={`/films/${film.id}/review`}>Add review</Link>
+                <Link className="btn film-card__button" to={`${url}/review`}>Add review</Link>
               </div>
             </div>
           </div>
@@ -70,7 +76,9 @@ function FilmPage({films}: PropsType): JSX.Element {
               <nav className="film-nav film-card__nav">
                 <ul className="film-nav__list">
                   <li className="film-nav__item">
-                    <NavLink to={`/films/${film.id}`}
+                    <NavLink
+                      exact
+                      to={url}
                       className="film-nav__item film-nav__link"
                       activeClassName="film-nav__item--active"
                     >
@@ -78,7 +86,9 @@ function FilmPage({films}: PropsType): JSX.Element {
                     </NavLink>
                   </li>
                   <li className="film-nav__item">
-                    <NavLink to={`/films/${film.id}/details`}
+                    <NavLink
+                      exact
+                      to={`${url}/details`}
                       className="film-nav__item film-nav__link"
                       activeClassName="film-nav__item--active"
                     >
@@ -86,7 +96,9 @@ function FilmPage({films}: PropsType): JSX.Element {
                     </NavLink>
                   </li>
                   <li className="film-nav__item">
-                    <NavLink to={`/films/${film.id}/reviews`}
+                    <NavLink
+                      exact
+                      to={`${url}/reviews`}
                       className="film-nav__item film-nav__link"
                       activeClassName="film-nav__item--active"
                     >
@@ -96,13 +108,13 @@ function FilmPage({films}: PropsType): JSX.Element {
                 </ul>
               </nav>
 
-              <Route exact path={'/films/:id/'}>
+              <Route exact path={path}>
                 <FilmPageOverview film={film}/>
               </Route>
-              <Route exact path={'/films/:id/details'}>
+              <Route exact path={`${path}/details`}>
                 <FilmPageDetails film={film}/>
               </Route>
-              <Route exact path={'/films/:id/reviews'}>
+              <Route exact path={`${path}/reviews`}>
                 <FilmPageReview />
               </Route>
             </div>
@@ -121,7 +133,7 @@ function FilmPage({films}: PropsType): JSX.Element {
 
         <footer className="page-footer">
           <div className="logo">
-            <a href="main.html" className="logo__link logo__link--light">
+            <a href="/" className="logo__link logo__link--light">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>

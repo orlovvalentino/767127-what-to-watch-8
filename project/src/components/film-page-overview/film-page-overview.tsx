@@ -8,16 +8,12 @@ function ratingGrade(rating:number){
   switch (true) {
     case rating >= 0 && rating < 3:
       return 'Bad';
-      break;
     case rating >= 3 && rating < 5:
       return 'Normal';
-      break;
     case rating >= 5 && rating < 8:
       return 'Good';
-      break;
     case rating >= 8 && rating < 10:
       return 'Very good';
-      break;
     default:
       return 'Awesome';
   }

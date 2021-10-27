@@ -5,13 +5,13 @@ type PropsType = {
 }
 
 function getDateString(date:string):string{
-  const newdate = new Date(date);
-  return `${newdate.toLocaleString(document.documentElement.lang, { month: 'long' })} ${newdate.getDate()}, ${newdate.getFullYear()}`;
+  const newDate = new Date(date);
+  return `${newDate.toLocaleString(document.documentElement.lang, { month: 'long' })} ${newDate.getDate()}, ${newDate.getFullYear()}`;
 }
 
 function CommentItem({comment}:PropsType): JSX.Element {
   return(
-    <div className="review" key={comment.id}>
+    <div className="review">
       <blockquote className="review__quote">
         <p className="review__text">{comment.comment}</p>
         <footer className="review__details">

@@ -4,8 +4,8 @@ import {Comments, Comment} from '../../types/comments';
 
 import CommentItem from '../coment-item/comment-item';
 
-function calculateCommentsInColumn(cm: Comments): number {
-  return Math.ceil(cm.length / 2);
+function calculateCommentsInColumn(localComments: Comments): number {
+  return Math.ceil(localComments.length / 2);
 }
 
 function FilmPageReview(): JSX.Element {
