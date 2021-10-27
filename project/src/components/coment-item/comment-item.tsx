@@ -3,13 +3,10 @@ import {Comment} from '../../types/comments';
 type PropsType = {
   comment: Comment
 }
-const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-  'July', 'August', 'September', 'October', 'November', 'December',
-];
 
 function getDateString(date:string):string{
   const newdate = new Date(date);
-  return `${monthNames[newdate.getMonth()]} ${newdate.getDate()}, ${newdate.getFullYear()}`;
+  return `${newdate.toLocaleString(document.documentElement.lang, { month: 'long' })} ${newdate.getDate()}, ${newdate.getFullYear()}`;
 }
 
 function CommentItem({comment}:PropsType): JSX.Element {
