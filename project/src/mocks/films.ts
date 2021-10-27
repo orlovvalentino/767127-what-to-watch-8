@@ -9,7 +9,7 @@ export const films: Films = [
     'backgroundImage': './img/bg-the-grand-budapest-hotel.jpg',
     'backgroundColor': '#ffffff',
     'videoLink': 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
-    'previewVideoLink': 'https://some-link',
+    'previewVideoLink': 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
     'description': '11In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave\'s friend and protege.\n' +
       '\n' +
       'Gustave prides himself on providing first-class service to the hotel\'s guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave\'s lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.',
@@ -30,7 +30,7 @@ export const films: Films = [
     'backgroundImage':'./img/bg-11.jpeg',
     'backgroundColor': '#ffffff',
     'videoLink': 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
-    'previewVideoLink': 'https://some-link',
+    'previewVideoLink': 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
     'description': '22 In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave\'s friend and protege.\n' +
       'Gustave prides himself on providing first-class service to the hotel\'s guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave\'s lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.',
     'rating': 1.3,
