@@ -11,36 +11,36 @@ type MovieItemProps={
 let timeOut: ReturnType<typeof setTimeout>;
 
 function MovieItem({onHoverLeave,onHover,film}:MovieItemProps):JSX.Element{
-  const [play,letsVidoePlay] = useState(false);
+  const [isActive,letsVideoPlay] = useState(false);
   const {id,name} = film;
 
-  function onHoverVideo(){
+  function handleVideoHover(){
     if(onHover){
       onHover();
     }
     timeOut = setTimeout( ()=> {
-      letsVidoePlay(true);
+      letsVideoPlay(true);
     }, 1000);
   }
 
-  function onHoverLeaveVideo(){
+  function handleVideoHoverLeave(){
     if(onHoverLeave){
       onHoverLeave();
     }
     clearTimeout(timeOut);
-    letsVidoePlay(false);
+    letsVideoPlay(false);
   }
 
   return(
     <article className="small-film-card catalog__films-card"
-      onMouseEnter={onHoverVideo}
-      onMouseLeave={onHoverLeaveVideo}
+      onMouseEnter={handleVideoHover}
+      onMouseLeave={handleVideoHoverLeave}
     >
 
       <div className="small-film-card__image">
         <VideoPlayer
           film={film}
-          play={play}
+          play={isActive}
         />
       </div>
       <h3 className="small-film-card__title">

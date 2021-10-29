@@ -2,12 +2,11 @@ import {Films} from '../../types/films';
 
 import {getCurrentFilm} from '../../tools';
 
-import {Route, NavLink, useParams, useRouteMatch, useHistory} from 'react-router-dom';
+import {useParams, useRouteMatch, useHistory} from 'react-router-dom';
 
 import Header from '../header/header';
-import FilmPageOverview from '../film-page-overview/film-page-overview';
-import FilmPageDetails from '../film-page-details/film-page-details';
-import FilmPageReview from '../film-page-review/film-page-review';
+import FilmPageTabs from '../film-page-tabs/film-page-tabs';
+
 import ListMovies from '../list-movies/list-movies';
 
 import {Link} from 'react-router-dom';
@@ -19,7 +18,7 @@ type PropsType = {
 
 function FilmPage({films}: PropsType): JSX.Element {
   const history = useHistory();
-  const { url,path } = useRouteMatch();
+  const {url} = useRouteMatch();
   const {id} = useParams<{id?: string}>();
   const film = getCurrentFilm(films, id);
 
@@ -72,52 +71,8 @@ function FilmPage({films}: PropsType): JSX.Element {
               <img src={film.posterImage} alt={film.name} width="218" height="327" />
             </div>
 
-            <div className="film-card__desc">
-              <nav className="film-nav film-card__nav">
-                <ul className="film-nav__list">
-                  <li className="film-nav__item">
-                    <NavLink
-                      exact
-                      to={url}
-                      className="film-nav__item film-nav__link"
-                      activeClassName="film-nav__item--active"
-                    >
-                      Overview
-                    </NavLink>
-                  </li>
-                  <li className="film-nav__item">
-                    <NavLink
-                      exact
-                      to={`${url}/details`}
-                      className="film-nav__item film-nav__link"
-                      activeClassName="film-nav__item--active"
-                    >
-                      Details
-                    </NavLink>
-                  </li>
-                  <li className="film-nav__item">
-                    <NavLink
-                      exact
-                      to={`${url}/reviews`}
-                      className="film-nav__item film-nav__link"
-                      activeClassName="film-nav__item--active"
-                    >
-                      Reviews
-                    </NavLink>
-                  </li>
-                </ul>
-              </nav>
+            <FilmPageTabs film={film}/>
 
-              <Route exact path={path}>
-                <FilmPageOverview film={film}/>
-              </Route>
-              <Route exact path={`${path}/details`}>
-                <FilmPageDetails film={film}/>
-              </Route>
-              <Route exact path={`${path}/reviews`}>
-                <FilmPageReview />
-              </Route>
-            </div>
           </div>
         </div>
       </section>

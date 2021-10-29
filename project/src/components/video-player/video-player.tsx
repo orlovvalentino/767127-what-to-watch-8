@@ -12,14 +12,17 @@ function VideoPlayer({film,play}: PropsType): JSX.Element {
   useEffect(() => {
     if(play){
       if(videoRef.current) {
-        videoRef.current.play();
+        videoRef.current.play()
+          .catch(()=> {
+            throw new Error('Problem with video');
+          });
       }
     }else{
       if(videoRef.current) {
         videoRef.current.load();
       }
     }
-  });
+  },[play]);
 
   return (
     <video
