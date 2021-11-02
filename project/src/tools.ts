@@ -8,5 +8,5 @@ export function getFilmsByGenre(films: Films, genre: string): Films {
   if(genre.toLowerCase() === 'all genres'){
     return films;
   }
-  return films.filter((item: Film) => item.genre.toLowerCase() === genre.toLowerCase())
+  return films.filter((item: Film) => item.genre.toLowerCase() === genre.toLowerCase());
 }
