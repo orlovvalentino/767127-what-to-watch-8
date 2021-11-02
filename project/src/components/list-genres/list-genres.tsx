@@ -1,19 +1,51 @@
-import {Films} from '../../types/films';
+import {MouseEvent} from 'react';
+import {Actions} from '../../types/action';
+import {State} from '../../types/state';
+import {changeGenre} from '../../store/action';
+import {Dispatch} from 'redux';
+import {connect, ConnectedProps} from 'react-redux';
 
 type PropsType = {
-  films: Films
+  genres: string[],
 }
+const mapStateToProps = ({genre}: State) => ({
+  genre,
+});
 
-function ListGenres({films}: PropsType):JSX.Element{
-  const genres = [...new Set(films.map((item) => item.genre))];
-  genres.unshift('All genres');
+const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
+  onChangeGenre(genre:string) {
+    dispatch(changeGenre(genre));
+  },
+});
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type ConnectedComponentProps = PropsFromRedux & PropsType;
+
+function ListGenres(props: ConnectedComponentProps):JSX.Element{
+  const {genres, onChangeGenre, genre} = props;
+
+  function getActiveClass(item:string){
+    return item.toLowerCase()===genre ? 'catalog__genres-item--active': '';
+  }
+  function getHref(item:string){
+    if(item === 'all genres'){
+      return '/';
+    }
+    return item.toLowerCase();
+  }
   return (
     <ul className="catalog__genres-list">
       {genres.map((item:string,index: number)=> (
         <li key={`genre-${item}`}
-          className={`catalog__genres-item ${index===0 ? 'catalog__genres-item--active': ''}`}
+          className={`catalog__genres-item ${getActiveClass(item)}`}
         >
-          <a href={`/${item.toLowerCase().replace(/ /g,'_')}`}
+          <a href={getHref(item)}
+            onClick={(e:MouseEvent<HTMLAnchorElement>)=>{
+              e.preventDefault();
+              onChangeGenre(item.toLowerCase());
+            }}
             className='catalog__genres-link'
           >{item}
           </a>
@@ -23,4 +55,5 @@ function ListGenres({films}: PropsType):JSX.Element{
     </ul>
   );
 }
-export default ListGenres;
+export {ListGenres};
+export default connector(ListGenres);

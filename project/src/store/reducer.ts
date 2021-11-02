@@ -1,9 +1,10 @@
 import {films} from '../mocks/films';
+import {BASE_GENRE} from '../const';
 import {State} from '../types/state';
 import {Actions, ActionType} from '../types/action';
 
 const initialState = {
-  genre: 'triller',
+  genre: BASE_GENRE,
   films: films,
 };
 

@@ -1,21 +1,36 @@
 import {Films, Film} from '../../types/films';
-
+import {getFilmsByGenre} from '../../tools';
 import ListMovies from '../list-movies/list-movies';
 import {useHistory} from 'react-router-dom';
 import ListGenres from '../list-genres/list-genres';
+import {State} from '../../types/state';
+import {connect, ConnectedProps} from 'react-redux';
+import {BASE_GENRE} from '../../const';
 
 type PropsType = {
   moviePromo: Film,
   films:Films
 }
 
-function HomePage({moviePromo, films}: PropsType): JSX.Element {
+const mapStateToProps = ({genre}: State) => ({
+  genre,
+});
+
+const connector = connect(mapStateToProps, {});
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type ConnectedComponentProps = PropsFromRedux & PropsType;
+
+function HomePage(props: ConnectedComponentProps): JSX.Element {
+  const {moviePromo, films, genre}= props;
   const history = useHistory();
+  const genres = [...new Set(films.map((item:Film) => item.genre))];
+  genres.unshift(BASE_GENRE);
   return (
     <>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt={moviePromo.name}/>
+          <img src={moviePromo.backgroundImage} alt={moviePromo.name}/>
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -83,10 +98,10 @@ function HomePage({moviePromo, films}: PropsType): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <ListGenres films={films}/>
+          <ListGenres genres={genres} />
 
           <div className="catalog__films-list">
-            <ListMovies films={films}/>
+            <ListMovies films={getFilmsByGenre(films,genre)}/>
           </div>
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
@@ -111,4 +126,5 @@ function HomePage({moviePromo, films}: PropsType): JSX.Element {
   );
 }
 
-export default HomePage;
+export {HomePage};
+export default connector(HomePage);
