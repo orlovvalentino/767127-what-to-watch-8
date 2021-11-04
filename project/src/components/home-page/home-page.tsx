@@ -5,7 +5,6 @@ import {useHistory} from 'react-router-dom';
 import ListGenres from '../list-genres/list-genres';
 import {State} from '../../types/state';
 import {connect, ConnectedProps} from 'react-redux';
-import {BASE_GENRE} from '../../const';
 
 type PropsType = {
   moviePromo: Film,
@@ -24,8 +23,7 @@ type ConnectedComponentProps = PropsFromRedux & PropsType;
 function HomePage(props: ConnectedComponentProps): JSX.Element {
   const {moviePromo, films, genre}= props;
   const history = useHistory();
-  const genres = [...new Set(films.map((item:Film) => item.genre))];
-  genres.unshift(BASE_GENRE);
+
   return (
     <>
       <section className="film-card">
@@ -98,7 +96,7 @@ function HomePage(props: ConnectedComponentProps): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <ListGenres genres={genres} />
+          <ListGenres />
 
           <div className="catalog__films-list">
             <ListMovies films={getFilmsByGenre(films,genre)}/>

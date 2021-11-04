@@ -4,12 +4,11 @@ import {State} from '../../types/state';
 import {changeGenre} from '../../store/action';
 import {Dispatch} from 'redux';
 import {connect, ConnectedProps} from 'react-redux';
+import {BASE_GENRE} from '../../const';
 
-type PropsType = {
-  genres: string[],
-}
-const mapStateToProps = ({genre}: State) => ({
+const mapStateToProps = ({genre,films}: State) => ({
   genre,
+  films,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
@@ -21,14 +20,17 @@ const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedComponentProps = PropsFromRedux & PropsType;
+type ConnectedComponentProps = PropsFromRedux;
+
+function getActiveClass(item:string, genre:string){
+  return item.toLowerCase()===genre ? 'catalog__genres-item--active': '';
+}
 
 function ListGenres(props: ConnectedComponentProps):JSX.Element{
-  const {genres, onChangeGenre, genre} = props;
+  const {onChangeGenre, genre, films} = props;
+  const genres = [...new Set(films.map((item) => item.genre))];
+  genres.unshift(BASE_GENRE);
 
-  function getActiveClass(item:string){
-    return item.toLowerCase()===genre ? 'catalog__genres-item--active': '';
-  }
   function getHref(item:string){
     if(item === 'all genres'){
       return '/';
@@ -37,9 +39,9 @@ function ListGenres(props: ConnectedComponentProps):JSX.Element{
   }
   return (
     <ul className="catalog__genres-list">
-      {genres.map((item:string,index: number)=> (
+      {genres.map((item)=> (
         <li key={`genre-${item}`}
-          className={`catalog__genres-item ${getActiveClass(item)}`}
+          className={`catalog__genres-item ${getActiveClass(item,genre)}`}
         >
           <a href={getHref(item)}
             onClick={(e:MouseEvent<HTMLAnchorElement>)=>{
