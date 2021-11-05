@@ -1,20 +1,34 @@
 import {Films, Film} from '../../types/films';
-
+import {getFilmsByGenre} from '../../tools';
 import ListMovies from '../list-movies/list-movies';
 import {useHistory} from 'react-router-dom';
+import ListGenres from '../list-genres/list-genres';
+import {State} from '../../types/state';
+import {connect, ConnectedProps} from 'react-redux';
 
 type PropsType = {
   moviePromo: Film,
   films:Films
 }
 
-function HomePage({moviePromo, films}: PropsType): JSX.Element {
+const mapStateToProps = ({genre}: State) => ({
+  genre,
+});
+
+const connector = connect(mapStateToProps, {});
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type ConnectedComponentProps = PropsFromRedux & PropsType;
+
+function HomePage(props: ConnectedComponentProps): JSX.Element {
+  const {moviePromo, films, genre}= props;
   const history = useHistory();
+
   return (
     <>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt={moviePromo.name}/>
+          <img src={moviePromo.backgroundImage} alt={moviePromo.name}/>
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -82,41 +96,10 @@ function HomePage({moviePromo, films}: PropsType): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <ul className="catalog__genres-list">
-            <li className="catalog__genres-item catalog__genres-item--active">
-              <a href="/genres" className="catalog__genres-link">All genres</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="/сomedies" className="catalog__genres-link">Comedies</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="/сrime" className="catalog__genres-link">Crime</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="/documentary" className="catalog__genres-link">Documentary</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="/dramas" className="catalog__genres-link">Dramas</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="/horror" className="catalog__genres-link">Horror</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="/kids-family" className="catalog__genres-link">Kids & Family</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="/romance" className="catalog__genres-link">Romance</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="/sci-fi" className="catalog__genres-link">Sci-Fi</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="/thrillers" className="catalog__genres-link">Thrillers</a>
-            </li>
-          </ul>
+          <ListGenres />
 
           <div className="catalog__films-list">
-            <ListMovies films={films}/>
+            <ListMovies films={getFilmsByGenre(films,genre)}/>
           </div>
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
@@ -141,4 +124,5 @@ function HomePage({moviePromo, films}: PropsType): JSX.Element {
   );
 }
 
-export default HomePage;
+export {HomePage};
+export default connector(HomePage);

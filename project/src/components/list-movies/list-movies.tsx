@@ -18,7 +18,7 @@ function ListMovies({films}:PropsType): JSX.Element {
           onHover={() => setCurrentFilm(film.id.toString())}
           film={film}
         />
-      ))};
+      ))}
     </>
   );
 }

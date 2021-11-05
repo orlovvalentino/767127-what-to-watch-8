@@ -1,3 +1,5 @@
+export const BASE_GENRE = 'all genres';
+
 export enum AppRoute {
   Login = '/login',
   Mylist = '/mylist',
