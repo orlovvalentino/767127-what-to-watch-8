@@ -20,7 +20,7 @@ function App({films}: PropsType): JSX.Element {
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.Root}>
-          <HomePage moviePromo={films[0]} films={films} />
+          <HomePage moviePromo={films[0]} />
         </Route>
         <Route exact path={AppRoute.Login}>
           <SignIn/>
