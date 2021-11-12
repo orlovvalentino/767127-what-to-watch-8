@@ -1,18 +1,20 @@
-import {Films, Film} from '../../types/films';
-import {getFilmsByGenre} from '../../tools';
+import {Film} from '../../types/films';
 import ListMovies from '../list-movies/list-movies';
 import {useHistory} from 'react-router-dom';
 import ListGenres from '../list-genres/list-genres';
 import {State} from '../../types/state';
 import {connect, ConnectedProps} from 'react-redux';
+import ShowMoreButton from '../show-more-button/show-more-button';
+
 
 type PropsType = {
   moviePromo: Film,
-  films:Films
 }
 
-const mapStateToProps = ({genre}: State) => ({
+const mapStateToProps = ({genre,filteredFilms,countFilmsInList}: State) => ({
   genre,
+  filteredFilms,
+  countFilmsInList,
 });
 
 const connector = connect(mapStateToProps, {});
@@ -21,7 +23,7 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 type ConnectedComponentProps = PropsFromRedux & PropsType;
 
 function HomePage(props: ConnectedComponentProps): JSX.Element {
-  const {moviePromo, films, genre}= props;
+  const {moviePromo, filteredFilms,countFilmsInList}= props;
   const history = useHistory();
 
   return (
@@ -97,13 +99,11 @@ function HomePage(props: ConnectedComponentProps): JSX.Element {
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
           <ListGenres />
-
           <div className="catalog__films-list">
-            <ListMovies films={getFilmsByGenre(films,genre)}/>
+            <ListMovies films={filteredFilms.slice(0,countFilmsInList)}/>
           </div>
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          {filteredFilms.length > countFilmsInList ? <ShowMoreButton />:''}
+
         </section>
 
         <footer className="page-footer">
