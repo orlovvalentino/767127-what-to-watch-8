@@ -26,13 +26,6 @@ function HomePage(props: ConnectedComponentProps): JSX.Element {
   const {moviePromo, filteredFilms,countFilmsInList}= props;
   const history = useHistory();
 
-  // useEffect(() => {
-  //   console.log(countFilmsInList);
-  //   return function cleanup() {
-  //
-  //   }
-  // })
-
   return (
     <>
       <section className="film-card">

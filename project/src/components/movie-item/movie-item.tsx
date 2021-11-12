@@ -5,30 +5,22 @@ import {useState} from 'react';
 
 type MovieItemProps={
   film: Film,
-  onHover?:()=>void,
-  onHoverLeave?:()=>void
 }
 let timeOut: ReturnType<typeof setTimeout>;
 
-function MovieItem({onHoverLeave,onHover,film}:MovieItemProps):JSX.Element{
-  const [isActive,letsVideoPlay] = useState(false);
+function MovieItem({film}:MovieItemProps):JSX.Element{
+  const [isActive,setIsActive] = useState(false);
   const {id,name} = film;
 
   function handleVideoHover(){
-    if(onHover){
-      onHover();
-    }
     timeOut = setTimeout( ()=> {
-      letsVideoPlay(true);
+      setIsActive(true);
     }, 1000);
   }
 
   function handleVideoHoverLeave(){
-    if(onHoverLeave){
-      onHoverLeave();
-    }
     clearTimeout(timeOut);
-    letsVideoPlay(false);
+    setIsActive(false);
   }
 
   return(
