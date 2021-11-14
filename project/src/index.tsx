@@ -8,9 +8,16 @@ import {composeWithDevTools} from 'redux-devtools-extension';
 import App from './components/app/app';
 import {reducer} from './store/reducer';
 
+const api = createAPI(
+  () => {
+  },
+);
+
 const store = createStore(
   reducer,
-  composeWithDevTools(),
+  composeWithDevTools(
+    applyMiddleware(thunk.withExtraArgument(api)),
+  ),
 );
 
 ReactDOM.render(
