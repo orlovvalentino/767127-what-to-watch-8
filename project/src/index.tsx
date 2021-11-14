@@ -4,7 +4,6 @@ import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import App from './components/app/app';
-import {films} from './mocks/films';
 import {reducer} from './store/reducer';
 
 const store = createStore(

@@ -1,4 +1,3 @@
-import {films} from '../mocks/films';
 import {BASE_GENRE,COUNT_FILMS_IN_LIST} from '../const';
 import {State} from '../types/state';
 import {Actions, ActionType} from '../types/action';

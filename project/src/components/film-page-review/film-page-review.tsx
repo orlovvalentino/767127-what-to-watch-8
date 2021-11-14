@@ -1,5 +1,3 @@
-import {comments} from '../../mocks/comments';
-
 import {Comments, Comment} from '../../types/comments';
 
 import CommentItem from '../coment-item/comment-item';
