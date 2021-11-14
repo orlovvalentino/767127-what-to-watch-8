@@ -7,11 +7,10 @@ import {Provider} from 'react-redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import App from './components/app/app';
 import {reducer} from './store/reducer';
+import {fetchFilmsAction} from './store/api-actions';
+import {ThunkAppDispatch} from './types/action';
 
-const api = createAPI(
-  () => {
-  },
-);
+const api = createAPI();
 
 const store = createStore(
   reducer,
@@ -20,10 +19,12 @@ const store = createStore(
   ),
 );
 
+(store.dispatch as ThunkAppDispatch)(fetchFilmsAction());
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store = {store}>
-      <App films = {films}/>
+      <App />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'));

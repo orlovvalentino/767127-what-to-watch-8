@@ -1,4 +1,8 @@
 import {Films} from './films';
+import {ThunkAction, ThunkDispatch} from 'redux-thunk';
+import {AxiosInstance} from 'axios';
+import {State} from './state';
+
 export enum ActionType {
   ChangeGenre = 'player/changeGenre',
   GetListFilms = 'player/getListFilms',
@@ -12,7 +16,7 @@ export type ChangeGenre = {
 }
 export type GetListFilms = {
   type: ActionType.GetListFilms,
-  payload: string,
+  payload: Films,
 }
 export type SetFilteredFilms ={
   type:ActionType.SetFilteredFilms,
@@ -24,3 +28,7 @@ export type SetCountFilmsInList = {
 }
 
 export type Actions = ChangeGenre | GetListFilms | SetFilteredFilms | SetCountFilmsInList;
+
+export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>;
+
+export type ThunkAppDispatch = ThunkDispatch<State, AxiosInstance, Actions>;
