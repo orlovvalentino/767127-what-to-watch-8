@@ -13,6 +13,8 @@ export const fetchFilmsAction = (): ThunkActionResult =>
 
 export const login = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
-    const {data} = await api.get<boolean>(APIRoute.Login);
-    dispatch(setAuthorizationStatus(data));
+    await api.get(APIRoute.Login)
+      .then(() => {
+        dispatch(setAuthorizationStatus(true));
+      });
   };

@@ -9,8 +9,11 @@ import App from './components/app/app';
 import {reducer} from './store/reducer';
 import {fetchFilmsAction, login} from './store/api-actions';
 import {ThunkAppDispatch} from './types/action';
+import {setAuthorizationStatus} from './store/action';
 
-const api = createAPI();
+const api = createAPI(
+  () => store.dispatch(setAuthorizationStatus(false)),
+);
 
 const store = createStore(
   reducer,
