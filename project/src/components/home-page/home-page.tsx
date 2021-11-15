@@ -1,4 +1,3 @@
-import {Film} from '../../types/films';
 import ListMovies from '../list-movies/list-movies';
 import {useHistory} from 'react-router-dom';
 import ListGenres from '../list-genres/list-genres';
@@ -6,13 +5,9 @@ import {State} from '../../types/state';
 import {connect, ConnectedProps} from 'react-redux';
 import ShowMoreButton from '../show-more-button/show-more-button';
 
-
-type PropsType = {
-  moviePromo: Film,
-}
-
-const mapStateToProps = ({genre,filteredFilms,countFilmsInList}: State) => ({
+const mapStateToProps = ({genre,films,filteredFilms,countFilmsInList}: State) => ({
   genre,
+  films,
   filteredFilms,
   countFilmsInList,
 });
@@ -20,10 +15,12 @@ const mapStateToProps = ({genre,filteredFilms,countFilmsInList}: State) => ({
 const connector = connect(mapStateToProps, {});
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedComponentProps = PropsFromRedux & PropsType;
+type ConnectedComponentProps = PropsFromRedux;
 
 function HomePage(props: ConnectedComponentProps): JSX.Element {
-  const {moviePromo, filteredFilms,countFilmsInList}= props;
+  const {films , filteredFilms,countFilmsInList}= props;
+  const moviePromo = films[0];
+
   const history = useHistory();
 
   return (

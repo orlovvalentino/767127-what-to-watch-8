@@ -1,3 +1,4 @@
+import {connect, ConnectedProps} from 'react-redux';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import HomePage from '../home-page/home-page';
@@ -8,19 +9,24 @@ import AddReview from '../add-review/add-review';
 import Player from '../player/player';
 import NotFound from '../not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
-import {Films} from '../../types/films';
+import {State} from '../../types/state';
+import Preloader from '../preloader/preloader';
 
+const mapStateToProps = ({films}: State) => ({
+  films,
+});
+const connector = connect(mapStateToProps);
 
-type PropsType = {
-  films:Films
-}
+type PropsFromRedux = ConnectedProps<typeof connector>;
 
-function App({films}: PropsType): JSX.Element {
-  return (
+function App(props: PropsFromRedux): JSX.Element {
+  const {films} = props;
+
+  return films.length > 0 ?
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.Root}>
-          <HomePage moviePromo={films[0]} />
+          <HomePage />
         </Route>
         <Route exact path={AppRoute.Login}>
           <SignIn/>
@@ -47,7 +53,8 @@ function App({films}: PropsType): JSX.Element {
         </Route>
       </Switch>
     </BrowserRouter>
-  );
+    : <Preloader/>;
 }
 
-export default App;
+export {App};
+export default connector(App);
