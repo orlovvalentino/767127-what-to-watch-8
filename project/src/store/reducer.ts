@@ -7,6 +7,7 @@ const initialState = {
   countFilmsInList:COUNT_FILMS_IN_LIST,
   films: [],
   filteredFilms: [],
+  authorizationStatus:false,
 };
 
 const reducer = (state: State = initialState, action: Actions): State => {

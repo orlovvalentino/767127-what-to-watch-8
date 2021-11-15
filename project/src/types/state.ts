@@ -5,4 +5,5 @@ export type State = {
   countFilmsInList:number,
   films: Films,
   filteredFilms:Films,
+  authorizationStatus:boolean
 };
