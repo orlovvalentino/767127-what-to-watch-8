@@ -34,7 +34,6 @@ function App(props: PropsFromRedux): JSX.Element {
         <PrivateRoute
           exact
           path={AppRoute.Mylist}
-          authorizationStatus
           render={() => <MyList films={films}/>}
         >
         </PrivateRoute>
