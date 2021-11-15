@@ -7,7 +7,7 @@ import {Provider} from 'react-redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import App from './components/app/app';
 import {reducer} from './store/reducer';
-import {fetchFilmsAction} from './store/api-actions';
+import {fetchFilmsAction, login} from './store/api-actions';
 import {ThunkAppDispatch} from './types/action';
 
 const api = createAPI();
@@ -19,6 +19,7 @@ const store = createStore(
   ),
 );
 
+(store.dispatch as ThunkAppDispatch)(login());
 (store.dispatch as ThunkAppDispatch)(fetchFilmsAction());
 
 ReactDOM.render(
