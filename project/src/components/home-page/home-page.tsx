@@ -4,6 +4,7 @@ import ListGenres from '../list-genres/list-genres';
 import {State} from '../../types/state';
 import {connect, ConnectedProps} from 'react-redux';
 import ShowMoreButton from '../show-more-button/show-more-button';
+import HeaderLogin from '../header-login/header-login';
 
 const mapStateToProps = ({genre,films,filteredFilms,countFilmsInList}: State) => ({
   genre,
@@ -41,16 +42,7 @@ function HomePage(props: ConnectedComponentProps): JSX.Element {
             </a>
           </div>
 
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link" href="/signout" >Sign out</a>
-            </li>
-          </ul>
+          <HeaderLogin />
         </header>
 
         <div className="film-card__wrap">
