@@ -1,4 +1,4 @@
-import {BASE_GENRE,COUNT_FILMS_IN_LIST} from '../const';
+import {BASE_GENRE, COUNT_FILMS_IN_LIST} from '../const';
 import {State} from '../types/state';
 import {Actions, ActionType} from '../types/action';
 
@@ -20,6 +20,8 @@ const reducer = (state: State = initialState, action: Actions): State => {
       return {...state, filteredFilms: action.payload};
     case ActionType.SetCountFilmsInList:
       return {...state, countFilmsInList: action.payload};
+    case ActionType.SetAuthorizationStatus:
+      return {...state, authorizationStatus:action.payload};
     default:
       return state;
   }

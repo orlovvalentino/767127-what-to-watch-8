@@ -7,7 +7,8 @@ export enum ActionType {
   ChangeGenre = 'player/changeGenre',
   GetListFilms = 'player/getListFilms',
   SetFilteredFilms ='player/setFilteredFilms',
-  SetCountFilmsInList = 'player/SetCountFilmsInList'
+  SetCountFilmsInList = 'player/SetCountFilmsInList',
+  SetAuthorizationStatus='user/SetAuthorizationStatus'
 }
 
 export type ChangeGenre = {
@@ -26,8 +27,12 @@ export type SetCountFilmsInList = {
   type: ActionType.SetCountFilmsInList,
   payload:number
 }
+export type SetAuthorizationStatus= {
+  type: ActionType.SetAuthorizationStatus,
+  payload:boolean
+}
 
-export type Actions = ChangeGenre | GetListFilms | SetFilteredFilms | SetCountFilmsInList;
+export type Actions = ChangeGenre | GetListFilms | SetFilteredFilms | SetCountFilmsInList | SetAuthorizationStatus;
 
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>;
 

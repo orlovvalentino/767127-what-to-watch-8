@@ -1,5 +1,12 @@
 import {Films} from '../types/films';
-import {ActionType, ChangeGenre, GetListFilms,SetFilteredFilms,SetCountFilmsInList} from '../types/action';
+import {
+  ActionType,
+  ChangeGenre,
+  GetListFilms,
+  SetAuthorizationStatus,
+  SetCountFilmsInList,
+  SetFilteredFilms
+} from '../types/action';
 
 export const changeGenre = (genre: string): ChangeGenre => ({
   type: ActionType.ChangeGenre,
@@ -19,5 +26,10 @@ export const setFilteredFilms = (films: Films): SetFilteredFilms => ({
 export const setCountFilmsInList = (count: number):SetCountFilmsInList =>({
   type:ActionType.SetCountFilmsInList,
   payload: count,
+});
+
+export const setAuthorizationStatus = (status: boolean): SetAuthorizationStatus =>({
+  type: ActionType.SetAuthorizationStatus,
+  payload:status,
 });
 
