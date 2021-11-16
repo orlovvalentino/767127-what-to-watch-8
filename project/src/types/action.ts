@@ -1,38 +1,32 @@
-import {Films} from './films';
 import {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {AxiosInstance} from 'axios';
 import {State} from './state';
+import {
+  changeGenre,
+  getListFilms,
+  setFilteredFilms,
+  setCountFilmsInList,
+  setAuthorizationStatus,
+  redirectToRoute
+} from '../store/action';
 
 export enum ActionType {
   ChangeGenre = 'player/changeGenre',
   GetListFilms = 'player/getListFilms',
   SetFilteredFilms ='player/setFilteredFilms',
   SetCountFilmsInList = 'player/SetCountFilmsInList',
-  SetAuthorizationStatus='user/SetAuthorizationStatus'
+  SetAuthorizationStatus='user/SetAuthorizationStatus',
+  RedirectToRoute = 'player/redirectToRoute'
 }
 
-export type ChangeGenre = {
-  type: ActionType.ChangeGenre,
-  payload: string,
-}
-export type GetListFilms = {
-  type: ActionType.GetListFilms,
-  payload: Films,
-}
-export type SetFilteredFilms ={
-  type:ActionType.SetFilteredFilms,
-  payload:Films
-}
-export type SetCountFilmsInList = {
-  type: ActionType.SetCountFilmsInList,
-  payload:number
-}
-export type SetAuthorizationStatus= {
-  type: ActionType.SetAuthorizationStatus,
-  payload:boolean
-}
+export type Actions =
+  | ReturnType<typeof changeGenre>
+  | ReturnType<typeof getListFilms>
+  | ReturnType<typeof setFilteredFilms>
+  | ReturnType<typeof setCountFilmsInList>
+  | ReturnType<typeof setAuthorizationStatus>
+  | ReturnType<typeof redirectToRoute>;
 
-export type Actions = ChangeGenre | GetListFilms | SetFilteredFilms | SetCountFilmsInList | SetAuthorizationStatus;
 
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>;
 

@@ -1,5 +1,5 @@
 import {connect, ConnectedProps} from 'react-redux';
-import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import {Switch, Route, Router as BrowserRouter} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import HomePage from '../home-page/home-page';
 import SignIn from '../sign-in/sign-in';
@@ -11,6 +11,7 @@ import NotFound from '../not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
 import {State} from '../../types/state';
 import Preloader from '../preloader/preloader';
+import browserHistory from '../../browser-history';
 
 const mapStateToProps = ({films}: State) => ({
   films,
@@ -23,7 +24,7 @@ function App(props: PropsFromRedux): JSX.Element {
   const {films} = props;
 
   return films.length > 0 ?
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <Switch>
         <Route exact path={AppRoute.Root}>
           <HomePage />
