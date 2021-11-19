@@ -12,6 +12,7 @@ import {
 import {APIRoute, AppRoute} from '../const';
 import {ServerFilms} from '../types/serverFilms';
 import {adaptFilmsToClient, adaptFilmToClient} from '../services/adapter';
+import {CommentPost} from '../types/comments';
 
 
 export const fetchFilmsAction = (): ThunkActionResult =>
@@ -51,4 +52,9 @@ export const getComments = (id: string | undefined): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     const {data} = await api.get(`${APIRoute.Comments}/${id}`);
     dispatch(setComments(data));
+  };
+
+export const pushComment = ({id, comment,rating}: CommentPost): ThunkActionResult =>
+  async (dispatch, _getState, api) => {
+    await api.post(`${APIRoute.CommentPost}${id}`, {comment,rating});
   };

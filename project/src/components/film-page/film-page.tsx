@@ -1,5 +1,5 @@
 import {useEffect} from 'react';
-import {useParams, useRouteMatch, useHistory} from 'react-router-dom';
+import {useParams, useHistory} from 'react-router-dom';
 import {ThunkAppDispatch} from '../../types/action';
 import {getComments, getCurrentFilm, getSimilarFilms} from '../../store/api-actions';
 import Header from '../header/header';
@@ -35,7 +35,6 @@ type ConnectedComponentProps = PropsFromRedux;
 function FilmPage(props: ConnectedComponentProps): JSX.Element {
   const {currentFilm: film, getFilm, getSimilar, similarFilms, getCommentsById, authorizationStatus} = props;
   const history = useHistory();
-  const {url} = useRouteMatch();
   const {id} = useParams<{ id?: string }>();
   useEffect(() => {
     getFilm(id).then(() => {
@@ -90,7 +89,7 @@ function FilmPage(props: ConnectedComponentProps): JSX.Element {
                   </svg>
                   <span>My list</span>
                 </button>
-                {authorizationStatus ? <Link className="btn film-card__button" to={`${url}/review`}>Add review</Link> : ''}
+                {authorizationStatus ? <Link className="btn film-card__button" to={`/films/${id}/review`}>Add review</Link> : ''}
               </div>
             </div>
           </div>

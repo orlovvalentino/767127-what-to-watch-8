@@ -1,23 +1,46 @@
-import {useState,ChangeEvent} from 'react';
-import {useParams} from 'react-router-dom';
-
-import {Films} from '../../types/films';
-
-import {getCurrentFilm} from '../../tools';
-
+import {useState, ChangeEvent, FormEvent} from 'react';
 import Header from '../header/header';
+import {State} from '../../types/state';
+import {ThunkAppDispatch} from '../../types/action';
+import {pushComment} from '../../store/api-actions';
+import {connect, ConnectedProps} from 'react-redux';
+import Preloader from '../preloader/preloader';
+import {CommentPost} from '../../types/comments';
 
-type PropsType = {
-  films: Films
-}
+const mapStateToProps = ({currentFilm}: State) => ({
+  currentFilm,
+});
+const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
+  onSubmit(comment: CommentPost) {
+    dispatch(pushComment(comment));
+  },
+});
+const connector = connect(mapStateToProps, mapDispatchToProps);
 
-function AddReview({films}: PropsType): JSX.Element {
-  const {id} = useParams<{id?: string}>();
-  const film = getCurrentFilm(films, id);
-  const [, setComment] = useState('');
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+
+function AddReview(props: PropsFromRedux): JSX.Element {
+  const {onSubmit,currentFilm: film} = props;
+  const [comment, setComment] = useState('');
 
   function handleChangeComment(event: ChangeEvent<HTMLTextAreaElement>) {
     setComment(event.target.value);
+  }
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+
+    if (comment.length>0 && film) {
+      onSubmit({
+        id:film.id,
+        rating:8,
+        comment:comment,
+      });
+    }
+  };
+
+  if(!film){
+    return <Preloader/>;
   }
 
   return (
@@ -37,7 +60,11 @@ function AddReview({films}: PropsType): JSX.Element {
       </div>
 
       <div className="add-review">
-        <form action="#" className="add-review__form">
+        <form
+          className="add-review__form"
+          action=""
+          onSubmit={handleSubmit}
+        >
           <div className="rating">
             <div className="rating__stars">
               <input className="rating__input" id="star-10" type="radio" name="rating" value="10"/>
@@ -88,4 +115,6 @@ function AddReview({films}: PropsType): JSX.Element {
   );
 }
 
-export default AddReview;
+export {AddReview};
+export default connector(AddReview);
+

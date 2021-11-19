@@ -9,3 +9,9 @@ export type Comment = {
   date:string
 }
 export type Comments = Comment[];
+
+export type CommentPost={
+  id:number,
+  rating: number,
+  comment: string
+}
