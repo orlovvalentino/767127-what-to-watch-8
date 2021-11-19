@@ -1,10 +1,17 @@
 import {ThunkActionResult} from '../types/action';
 import {AuthData} from '../types/auth-data';
 import {saveToken, Token} from '../services/token';
-import {getListFilms, setAuthorizationStatus, setFilteredFilms,redirectToRoute} from './action';
+import {
+  getListFilms,
+  setAuthorizationStatus,
+  setFilteredFilms,
+  redirectToRoute,
+  setCurrentFilm,
+  setSimilarFilms, setComments
+} from './action';
 import {APIRoute,AppRoute} from '../const';
 import {ServerFilms} from '../types/serverFilms';
-import {adaptFilmsToClient} from '../services/adapter';
+import {adaptFilmsToClient,adaptFilmToClient} from '../services/adapter';
 
 
 export const fetchFilmsAction = (): ThunkActionResult =>
@@ -16,10 +23,8 @@ export const fetchFilmsAction = (): ThunkActionResult =>
 
 export const checkAuthAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
-    await api.get(APIRoute.Login)
-      .then(() => {
-        dispatch(setAuthorizationStatus(true));
-      });
+    const {payload} = await api.get(APIRoute.Login) as {payload:any};
+    dispatch(setAuthorizationStatus(payload));
   };
 
 export const loginAction = ({login: email, password}: AuthData): ThunkActionResult =>
@@ -30,4 +35,20 @@ export const loginAction = ({login: email, password}: AuthData): ThunkActionResu
     dispatch(redirectToRoute(AppRoute.Root));
   };
 
+export const getCurrentFilm = (id:string | undefined):ThunkActionResult=>
+  async (dispatch, _getState, api): Promise<void> => {
+    const {data} = await api.get(`${APIRoute.Films}/${id}`);
+    dispatch(setCurrentFilm(adaptFilmToClient(data)));
+  };
 
+export const getSimilarFilms = (id:string | undefined):ThunkActionResult=>
+  async (dispatch, _getState, api): Promise<void> => {
+    const {data} = await api.get(`${APIRoute.Films}/${id}/similar`);
+    dispatch(setSimilarFilms(adaptFilmsToClient(data)));
+  };
+
+export const getComments = (id:string | undefined):ThunkActionResult=>
+  async (dispatch, _getState, api): Promise<void> => {
+    const {data} = await api.get(`${APIRoute.Comments}/${id}`);
+    dispatch(setComments(data));
+  };
