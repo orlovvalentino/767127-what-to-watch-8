@@ -48,8 +48,8 @@ function HomePage(props: ConnectedComponentProps): JSX.Element {
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg"
-                alt="The Grand Budapest Hotel poster"
+              <img src={moviePromo.posterImage}
+                alt={moviePromo.name}
                 width="218" height="327"
               />
             </div>

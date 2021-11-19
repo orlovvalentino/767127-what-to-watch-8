@@ -1,33 +1,62 @@
-import {Films} from '../../types/films';
-
-import {getCurrentFilm} from '../../tools';
-
+import {useEffect} from 'react';
 import {useParams, useRouteMatch, useHistory} from 'react-router-dom';
-
+import {ThunkAppDispatch} from '../../types/action';
+import {getComments, getCurrentFilm, getSimilarFilms} from '../../store/api-actions';
 import Header from '../header/header';
 import FilmPageTabs from '../film-page-tabs/film-page-tabs';
 
 import ListMovies from '../list-movies/list-movies';
-
 import {Link} from 'react-router-dom';
+import {State} from '../../types/state';
+import {connect, ConnectedProps} from 'react-redux';
+import Preloader from '../preloader/preloader';
 
-type PropsType = {
-  films: Films
-}
+const mapStateToProps = ({currentFilm, similarFilms}: State) => ({
+  currentFilm,
+  similarFilms,
+});
 
+const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
+  async getFilm(id: string | undefined) {
+    await (dispatch as ThunkAppDispatch)(getCurrentFilm(id));
+  },
+  getSimilar(id: string | undefined) {
+    (dispatch as ThunkAppDispatch)(getSimilarFilms(id));
+  },
+  getCommentsById(id: string | undefined) {
+    (dispatch as ThunkAppDispatch)(getComments(id));
+  },
+});
+const connector = connect(mapStateToProps, mapDispatchToProps);
 
-function FilmPage({films}: PropsType): JSX.Element {
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type ConnectedComponentProps = PropsFromRedux;
+
+function FilmPage(props: ConnectedComponentProps): JSX.Element {
+  const {currentFilm: film, getFilm, getSimilar, similarFilms, getCommentsById} = props;
   const history = useHistory();
   const {url} = useRouteMatch();
-  const {id} = useParams<{id?: string}>();
-  const film = getCurrentFilm(films, id);
+  const {id} = useParams<{ id?: string }>();
+  useEffect(() => {
+    getFilm(id).then(() => {
+      getSimilar(id);
+      getCommentsById(id);
+    }).catch(() => {
+      history.push('/404');
+    });
+
+  }, [id]);
+
+  if (!film) {
+    return <Preloader/>;
+  }
 
   return (
     <>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src={film.backgroundImage} alt={film.name} />
+            <img src={film.backgroundImage} alt={film.name}/>
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -46,7 +75,9 @@ function FilmPage({films}: PropsType): JSX.Element {
                 <button
                   className="btn btn--play film-card__button"
                   type="button"
-                  onClick={() => {history.push(`/player/${film.id}`);}}
+                  onClick={() => {
+                    history.push(`/player/${film.id}`);
+                  }}
                 >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
@@ -68,7 +99,7 @@ function FilmPage({films}: PropsType): JSX.Element {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src={film.posterImage} alt={film.name} width="218" height="327" />
+              <img src={film.posterImage} alt={film.name} width="218" height="327"/>
             </div>
 
             <FilmPageTabs film={film}/>
@@ -82,7 +113,7 @@ function FilmPage({films}: PropsType): JSX.Element {
           <h2 className="catalog__title">More like this</h2>
 
           <div className="catalog__films-list">
-            <ListMovies films={films}/>
+            {similarFilms ? <ListMovies films={similarFilms}/> : <Preloader/>}
           </div>
         </section>
 
@@ -104,4 +135,5 @@ function FilmPage({films}: PropsType): JSX.Element {
   );
 }
 
-export default FilmPage;
+export {FilmPage};
+export default connector(FilmPage);

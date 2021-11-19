@@ -42,7 +42,7 @@ function App(props: PropsFromRedux): JSX.Element {
           <AddReview films={films}/>
         </Route>
         <Route  path={AppRoute.FilmPage}>
-          <FilmPage films={films} />
+          <FilmPage />
         </Route>
 
         <Route exact path={AppRoute.Player}>

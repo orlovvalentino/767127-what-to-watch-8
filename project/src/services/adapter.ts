@@ -1,7 +1,7 @@
 import {Films,Film} from '../types/films';
 import {ServerFilms,ServerFilm} from '../types/serverFilms';
 
-const adaptFilmToClient = (film: ServerFilm): Film => {
+export const adaptFilmToClient = (film: ServerFilm): Film => {
   const {
     name,
     description,
