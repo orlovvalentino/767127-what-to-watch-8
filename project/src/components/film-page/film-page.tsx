@@ -4,16 +4,16 @@ import {ThunkAppDispatch} from '../../types/action';
 import {getComments, getCurrentFilm, getSimilarFilms} from '../../store/api-actions';
 import Header from '../header/header';
 import FilmPageTabs from '../film-page-tabs/film-page-tabs';
-
 import ListMovies from '../list-movies/list-movies';
 import {Link} from 'react-router-dom';
 import {State} from '../../types/state';
 import {connect, ConnectedProps} from 'react-redux';
 import Preloader from '../preloader/preloader';
 
-const mapStateToProps = ({currentFilm, similarFilms}: State) => ({
+const mapStateToProps = ({currentFilm, similarFilms,authorizationStatus}: State) => ({
   currentFilm,
   similarFilms,
+  authorizationStatus,
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
@@ -33,7 +33,7 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 type ConnectedComponentProps = PropsFromRedux;
 
 function FilmPage(props: ConnectedComponentProps): JSX.Element {
-  const {currentFilm: film, getFilm, getSimilar, similarFilms, getCommentsById} = props;
+  const {currentFilm: film, getFilm, getSimilar, similarFilms, getCommentsById, authorizationStatus} = props;
   const history = useHistory();
   const {url} = useRouteMatch();
   const {id} = useParams<{ id?: string }>();
@@ -90,7 +90,7 @@ function FilmPage(props: ConnectedComponentProps): JSX.Element {
                   </svg>
                   <span>My list</span>
                 </button>
-                <Link className="btn film-card__button" to={`${url}/review`}>Add review</Link>
+                {authorizationStatus ? <Link className="btn film-card__button" to={`${url}/review`}>Add review</Link> : ''}
               </div>
             </div>
           </div>
