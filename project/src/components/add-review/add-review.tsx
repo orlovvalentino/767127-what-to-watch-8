@@ -1,4 +1,4 @@
-import {useState, ChangeEvent, FormEvent} from 'react';
+import {useState, ChangeEvent, FormEvent, useEffect} from 'react';
 import Header from '../header/header';
 import {State} from '../../types/state';
 import {ThunkAppDispatch} from '../../types/action';
@@ -6,13 +6,20 @@ import {pushComment} from '../../store/api-actions';
 import {connect, ConnectedProps} from 'react-redux';
 import Preloader from '../preloader/preloader';
 import {CommentPost} from '../../types/comments';
+import {stars} from '../../const';
+import {setCommentSubmitted} from '../../store/action';
+import {useHistory} from 'react-router-dom';
 
-const mapStateToProps = ({currentFilm}: State) => ({
+const mapStateToProps = ({currentFilm, commentSubmitted}: State) => ({
   currentFilm,
+  commentSubmitted,
 });
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
   onSubmit(comment: CommentPost) {
     dispatch(pushComment(comment));
+  },
+  updateCommentSubmitted() {
+    dispatch(setCommentSubmitted(false));
   },
 });
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -21,25 +28,53 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 
 function AddReview(props: PropsFromRedux): JSX.Element {
-  const {onSubmit,currentFilm: film} = props;
+  const history = useHistory();
+  const {onSubmit, currentFilm: film, commentSubmitted, updateCommentSubmitted} = props;
   const [comment, setComment] = useState('');
+  const [isActive, setIsActive] = useState<boolean>(true);
+  const [rating, setRating] = useState<number>(0);
+  const [canSubmit, setCanSubmit] = useState<boolean>(false);
+
+  function handleChangeRating(event: ChangeEvent<HTMLInputElement>) {
+    setRating(+event.target.value);
+  }
 
   function handleChangeComment(event: ChangeEvent<HTMLTextAreaElement>) {
     setComment(event.target.value);
+    if (event.target.value.length >= 50 && event.target.value.length < 401) {
+      setCanSubmit(true);
+    } else {
+      setCanSubmit(false);
+    }
   }
+
+  useEffect(() => {
+    if(commentSubmitted === true){
+      setIsActive(true);
+      if(film){
+        history.push(`/films/${film.id}`);
+      }
+    }
+    updateCommentSubmitted();
+    return function cleanup() {
+      updateCommentSubmitted();
+    };
+  }, [commentSubmitted]);
+
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
+    setIsActive(false);
 
-    if (comment.length>0 && film) {
+    if (comment.length > 0 && film) {
       onSubmit({
-        id:film.id,
-        rating:8,
-        comment:comment,
+        id: film.id,
+        rating: rating,
+        comment: comment,
       });
     }
   };
 
-  if(!film){
+  if (!film) {
     return <Preloader/>;
   }
 
@@ -67,45 +102,39 @@ function AddReview(props: PropsFromRedux): JSX.Element {
         >
           <div className="rating">
             <div className="rating__stars">
-              <input className="rating__input" id="star-10" type="radio" name="rating" value="10"/>
-              <label className="rating__label" htmlFor="star-10">Rating 10</label>
-
-              <input className="rating__input" id="star-9" type="radio" name="rating" value="9"/>
-              <label className="rating__label" htmlFor="star-9">Rating 9</label>
-
-              <input className="rating__input" id="star-8" type="radio" name="rating" value="8" checked/>
-              <label className="rating__label" htmlFor="star-8">Rating 8</label>
-
-              <input className="rating__input" id="star-7" type="radio" name="rating" value="7"/>
-              <label className="rating__label" htmlFor="star-7">Rating 7</label>
-
-              <input className="rating__input" id="star-6" type="radio" name="rating" value="6"/>
-              <label className="rating__label" htmlFor="star-6">Rating 6</label>
-
-              <input className="rating__input" id="star-5" type="radio" name="rating" value="5"/>
-              <label className="rating__label" htmlFor="star-5">Rating 5</label>
-
-              <input className="rating__input" id="star-4" type="radio" name="rating" value="4"/>
-              <label className="rating__label" htmlFor="star-4">Rating 4</label>
-
-              <input className="rating__input" id="star-3" type="radio" name="rating" value="3"/>
-              <label className="rating__label" htmlFor="star-3">Rating 3</label>
-
-              <input className="rating__input" id="star-2" type="radio" name="rating" value="2"/>
-              <label className="rating__label" htmlFor="star-2">Rating 2</label>
-
-              <input className="rating__input" id="star-1" type="radio" name="rating" value="1"/>
-              <label className="rating__label" htmlFor="star-1">Rating 1</label>
+              {stars.map((star) => (
+                <>
+                  <input
+                    className="rating__input"
+                    id={`star-${star}`}
+                    type="radio"
+                    name="rating"
+                    value={star}
+                    onChange={handleChangeRating}
+                  />
+                  <label className="rating__label" htmlFor={`star-${star}`}>Rating {star}</label>
+                </>
+              ))}
             </div>
           </div>
 
           <div className="add-review__text">
-            <textarea onChange={handleChangeComment} className="add-review__textarea" name="review-text" id="review-text"
+            <textarea
+              disabled={!isActive}
+              onChange={handleChangeComment}
+              maxLength={400}
+              minLength={50}
+              className="add-review__textarea" name="review-text" id="review-text"
               placeholder="Review text"
             >
             </textarea>
             <div className="add-review__submit">
-              <button className="add-review__btn" type="submit">Post</button>
+              <button
+                className="add-review__btn"
+                disabled={!canSubmit || !isActive}
+                type="submit"
+              >Post
+              </button>
             </div>
           </div>
         </form>

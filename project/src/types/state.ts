@@ -10,4 +10,5 @@ export type State = {
   filteredFilms:Films,
   authorizationStatus:boolean,
   comments?:Comments,
+  commentSubmitted?:boolean,
 };

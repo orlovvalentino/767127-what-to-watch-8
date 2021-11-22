@@ -11,6 +11,7 @@ const initialState = {
   similarFilms:[],
   authorizationStatus:false,
   comments:[],
+  commentSubmitted:false,
 };
 
 const reducer = (state: State = initialState, action: Actions): State => {
@@ -31,6 +32,8 @@ const reducer = (state: State = initialState, action: Actions): State => {
       return {...state, authorizationStatus:action.payload};
     case ActionType.SetComments:
       return {...state, comments: action.payload};
+    case ActionType.SetCommentSubmitted:
+      return {...state, commentSubmitted: action.payload};
     default:
       return state;
   }

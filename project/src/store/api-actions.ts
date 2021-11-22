@@ -7,7 +7,7 @@ import {
   setFilteredFilms,
   redirectToRoute,
   setCurrentFilm,
-  setSimilarFilms, setComments
+  setSimilarFilms, setComments, setCommentSubmitted
 } from './action';
 import {APIRoute, AppRoute} from '../const';
 import {ServerFilms} from '../types/serverFilms';
@@ -56,5 +56,12 @@ export const getComments = (id: string | undefined): ThunkActionResult =>
 
 export const pushComment = ({id, comment,rating}: CommentPost): ThunkActionResult =>
   async (dispatch, _getState, api) => {
-    await api.post(`${APIRoute.CommentPost}${id}`, {comment,rating});
+    await api.post(`${APIRoute.CommentPost}${id}`, {comment,rating})
+      .then((resp)=>{
+        // eslint-disable-next-line no-console
+        console.log(resp);
+        if(resp.status === 200){
+          dispatch(setCommentSubmitted(true));
+        }
+      });
   };

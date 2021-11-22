@@ -10,7 +10,7 @@ import {
   setAuthorizationStatus,
   redirectToRoute,
   setSimilarFilms,
-  setComments
+  setComments, setCommentSubmitted
 } from '../store/action';
 
 export enum ActionType {
@@ -22,7 +22,8 @@ export enum ActionType {
   SetAuthorizationStatus='user/SetAuthorizationStatus',
   RedirectToRoute = 'player/redirectToRoute',
   SetSimilarFilms = 'player/setSimilarFilms',
-  SetComments = 'player/setComments'
+  SetComments = 'player/setComments',
+  SetCommentSubmitted = 'player/setCommentSubmitted',
 }
 
 export type Actions =
@@ -34,7 +35,8 @@ export type Actions =
   | ReturnType<typeof setAuthorizationStatus>
   | ReturnType<typeof redirectToRoute>
   | ReturnType<typeof setSimilarFilms>
-  | ReturnType<typeof setComments>;
+  | ReturnType<typeof setComments>
+  | ReturnType<typeof setCommentSubmitted>;
 
 
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>;

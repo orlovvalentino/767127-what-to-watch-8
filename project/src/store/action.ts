@@ -49,3 +49,8 @@ export const setComments = (comments: Comments) => ({
   payload: comments,
 } as const);
 
+export const setCommentSubmitted = (status: boolean) => ({
+  type: ActionType.SetCommentSubmitted,
+  payload: status,
+} as const);
+
