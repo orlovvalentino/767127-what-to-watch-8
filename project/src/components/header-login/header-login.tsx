@@ -2,10 +2,12 @@ import {State} from '../../types/state';
 import {connect, ConnectedProps} from 'react-redux';
 import {AppRoute} from '../../const';
 import {Link} from 'react-router-dom';
+import HeaderLogoutButton from '../header-logout-button/header-logout-button';
 
 const mapStateToProps = ({authorizationStatus}: State) => ({
   authorizationStatus,
 });
+
 
 const connector = connect(mapStateToProps, {});
 type PropsFromRedux = ConnectedProps<typeof connector>;
@@ -22,7 +24,7 @@ function HeaderLogin(props: ConnectedComponentProps): JSX.Element {
         </div>
       </li>
       <li className="user-block__item">
-        <a className="user-block__link" href="/signout">Sign out</a>
+        <HeaderLogoutButton/>
       </li>
     </ul> :
     <div className="user-block">

@@ -1,6 +1,6 @@
 import {ThunkActionResult} from '../types/action';
 import {AuthData} from '../types/auth-data';
-import {saveToken, Token} from '../services/token';
+import {saveToken, Token, removeToken} from '../services/token';
 import {
   getListFilms,
   setAuthorizationStatus,
@@ -41,6 +41,12 @@ export const loginAction = ({login: email, password}: AuthData): ThunkActionResu
     saveToken(token);
     dispatch(setAuthorizationStatus(true));
     dispatch(redirectToRoute(AppRoute.Root));
+  };
+export const logout = (): ThunkActionResult =>
+  async (dispatch, _getState, api) => {
+    await api.delete(APIRoute.Logout);
+    removeToken();
+    dispatch(setAuthorizationStatus(false));
   };
 
 export const getCurrentFilm = (id: string | undefined): ThunkActionResult =>

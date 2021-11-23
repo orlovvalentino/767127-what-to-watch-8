@@ -2,6 +2,7 @@ import ListMovies from '../list-movies/list-movies';
 import {State} from '../../types/state';
 import Preloader from '../preloader/preloader';
 import {connect, ConnectedProps} from 'react-redux';
+import HeaderLogoutButton from '../header-logout-button/header-logout-button';
 
 const mapStateToProps = ({favoriteFilms}: State) => ({
   favoriteFilms,
@@ -38,7 +39,7 @@ function MyList(props: ConnectedComponentProps): JSX.Element {
             </div>
           </li>
           <li className="user-block__item">
-            <a href="/signout" className="user-block__link">Sign out</a>
+            <HeaderLogoutButton/>
           </li>
         </ul>
       </header>
