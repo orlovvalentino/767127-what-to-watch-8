@@ -7,7 +7,10 @@ import {
   setFilteredFilms,
   redirectToRoute,
   setCurrentFilm,
-  setSimilarFilms, setComments, setCommentSubmitted, setFavoriteFilms
+  setSimilarFilms,
+  setComments,
+  setCommentSubmitted,
+  setFavoriteFilms
 } from './action';
 import {APIRoute, AppRoute} from '../const';
 import {ServerFilms} from '../types/serverFilms';
@@ -57,9 +60,11 @@ export const getSimilarFilms = (id: string | undefined): ThunkActionResult =>
     dispatch(setSimilarFilms(adaptFilmsToClient(data)));
   };
 export const getFavoriteFilms = (): ThunkActionResult =>
-  async (dispatch, _getState, api): Promise<void> => {
-    const {data} = await api.get(`${APIRoute.FavoriteFilms}`);
-    dispatch(setFavoriteFilms(adaptFilmsToClient(data)));
+  async (dispatch, getState, api): Promise<void> => {
+    if(getState().authorizationStatus){
+      const {data} = await api.get(`${APIRoute.FavoriteFilms}`);
+      dispatch(setFavoriteFilms(adaptFilmsToClient(data)));
+    }
   };
 
 export const getComments = (id: string | undefined): ThunkActionResult =>
@@ -78,7 +83,11 @@ export const pushComment = ({id, comment, rating}: CommentPost): ThunkActionResu
       });
   };
 export const pushFavorite = (id: number,status:number): ThunkActionResult =>
-  async (dispatch, _getState, api) => {
-    await api.post(`${APIRoute.FavoriteFilms}/${id}/${status}`, {id, status});
-    dispatch(getFavoriteFilms());
+  async (dispatch, getState, api) => {
+    if(getState().authorizationStatus){
+      await api.post(`${APIRoute.FavoriteFilms}/${id}/${status}`, {id, status});
+      dispatch(getFavoriteFilms());
+    }else{
+      dispatch(redirectToRoute(AppRoute.Login));
+    }
   };

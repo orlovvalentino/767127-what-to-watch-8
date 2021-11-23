@@ -1,6 +1,7 @@
 import {Films} from '../../types/films';
+import {MouseEvent, useEffect, useRef, useState} from 'react';
 
-import {useParams,useHistory} from 'react-router-dom';
+import {useParams, useHistory} from 'react-router-dom';
 
 import {getCurrentFilm} from '../../tools';
 
@@ -8,18 +9,45 @@ type PropsType = {
   films: Films
 }
 
-function Player({films}: PropsType):JSX.Element{
+function Player({films}: PropsType): JSX.Element {
+  const [isActive,setIsActive] = useState(false);
   const history = useHistory();
-  const {id} = useParams<{id?: string}>();
+  const {id} = useParams<{ id?: string }>();
   const film = getCurrentFilm(films, id);
-  return(
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  useEffect(()=>{
+    if(isActive){
+      if(videoRef.current) {
+        videoRef.current.play();
+      }
+    }else{
+      if(videoRef.current) {
+        videoRef.current.pause();
+      }
+    }
+  },[isActive]);
+
+  return (
     <div className="player">
-      <video src="#" className="player__video" poster={film.posterImage}></video>
+      <video
+        ref={videoRef}
+        src={film.videoLink}
+        className="player__video"
+        poster={film.previewImage}
+      >
+      </video>
 
       <button
         type="button"
         className="player__exit"
-        onClick={() => {history.goBack();}}
+        onClick={() => {
+          if(history.action==='POP'){
+            history.push('/');
+          }else{
+            history.goBack();
+          }
+        }}
       >Exit
       </button>
 
@@ -29,19 +57,31 @@ function Player({films}: PropsType):JSX.Element{
             <progress className="player__progress" value="30" max="100"></progress>
             <div className="player__toggler" style={{left: '30%'}}>Toggler</div>
           </div>
-          <div className="player__time-value">{new Date(film.runTime*60 * 1000).toISOString().substr(11, 8)}</div>
+          <div className="player__time-value">{new Date(film.runTime * 60 * 1000).toISOString().substr(11, 8)}</div>
         </div>
-
         <div className="player__controls-row">
-          <button type="button" className="player__play">
+          <button
+            type="button"
+            className="player__play"
+            onClick={(e: MouseEvent<HTMLButtonElement>) => {
+              setIsActive(!isActive);
+            }}
+          >
+
             <svg viewBox="0 0 19 19" width="19" height="19">
-              <use xlinkHref="#play-s"></use>
+              {isActive? <use xlinkHref="#pause"></use> :<use xlinkHref="#play-s"></use>}
             </svg>
             <span>Play</span>
           </button>
-          <div className="player__name">Transpotting</div>
+          <div className="player__name">{film.name}</div>
 
-          <button type="button" className="player__full-screen">
+          <button
+            type="button"
+            className="player__full-screen"
+            onClick={(e: MouseEvent<HTMLButtonElement>) => {
+              videoRef.current?.requestFullscreen();
+            }}
+          >
             <svg viewBox="0 0 27 27" width="27" height="27">
               <use xlinkHref="#full-screen"></use>
             </svg>
@@ -52,4 +92,5 @@ function Player({films}: PropsType):JSX.Element{
     </div>
   );
 }
+
 export default Player;
