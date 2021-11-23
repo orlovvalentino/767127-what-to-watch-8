@@ -65,6 +65,9 @@ function SignIn(props: PropsFromRedux): JSX.Element{
             </div>
             <div className="sign-in__field">
               <input
+                minLength={2}
+                pattern="(?=.*\d)(?=.*[a-zA-Z]).*"
+                title="пароль должен содержать минимум одну букву и цифру"
                 ref={passwordRef}
                 className="sign-in__input"
                 type="password"

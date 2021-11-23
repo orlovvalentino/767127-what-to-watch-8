@@ -9,6 +9,7 @@ import AddReview from '../add-review/add-review';
 import Player from '../player/player';
 import NotFound from '../not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
+import PublicRoute from '../poblic-route/public-route';
 import {State} from '../../types/state';
 import Preloader from '../preloader/preloader';
 import browserHistory from '../../browser-history';
@@ -27,25 +28,28 @@ function App(props: PropsFromRedux): JSX.Element {
     <BrowserRouter history={browserHistory}>
       <Switch>
         <Route exact path={AppRoute.Root}>
-          <HomePage />
+          <HomePage/>
         </Route>
-        <Route exact path={AppRoute.Login}>
-          <SignIn/>
-        </Route>
+        <PublicRoute
+          exact
+          path={AppRoute.Login}
+          render={() => <SignIn/>}
+        >
+        </PublicRoute>
         <PrivateRoute
           exact
           path={AppRoute.Mylist}
-          render={() => <MyList />}
+          render={() => <MyList/>}
         >
         </PrivateRoute>
         <PrivateRoute
           exact
           path={AppRoute.FilmAddReview}
-          render={() => <AddReview />}
+          render={() => <AddReview/>}
         >
         </PrivateRoute>
-        <Route  path={AppRoute.FilmPage}>
-          <FilmPage />
+        <Route path={AppRoute.FilmPage}>
+          <FilmPage/>
         </Route>
 
         <Route exact path={AppRoute.Player}>
