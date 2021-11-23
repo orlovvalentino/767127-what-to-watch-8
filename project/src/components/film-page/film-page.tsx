@@ -17,8 +17,8 @@ const mapStateToProps = ({currentFilm, similarFilms,authorizationStatus}: State)
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  async getFilm(id: string | undefined) {
-    await (dispatch as ThunkAppDispatch)(getCurrentFilm(id));
+  getFilm(id: string | undefined) {
+    (dispatch as ThunkAppDispatch)(getCurrentFilm(id));
   },
   getSimilar(id: string | undefined) {
     (dispatch as ThunkAppDispatch)(getSimilarFilms(id));
@@ -37,13 +37,9 @@ function FilmPage(props: ConnectedComponentProps): JSX.Element {
   const history = useHistory();
   const {id} = useParams<{ id?: string }>();
   useEffect(() => {
-    getFilm(id).then(() => {
-      getSimilar(id);
-      getCommentsById(id);
-    }).catch(() => {
-      history.push('/404');
-    });
-
+    getFilm(id);
+    getSimilar(id);
+    getCommentsById(id);
   }, [id]);
 
   if (!film) {

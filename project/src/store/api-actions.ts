@@ -24,8 +24,12 @@ export const fetchFilmsAction = (): ThunkActionResult =>
 
 export const checkAuthAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
-    const {payload} = await api.get(APIRoute.Login) as { payload: any };
-    dispatch(setAuthorizationStatus(payload));
+    const resp = await api.get(APIRoute.Login);
+    if (resp.status === 200) {
+      dispatch(setAuthorizationStatus(true));
+    } else {
+      dispatch(setAuthorizationStatus(false));
+    }
   };
 
 export const loginAction = ({login: email, password}: AuthData): ThunkActionResult =>
@@ -38,8 +42,13 @@ export const loginAction = ({login: email, password}: AuthData): ThunkActionResu
 
 export const getCurrentFilm = (id: string | undefined): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
-    const {data} = await api.get(`${APIRoute.Films}/${id}`);
-    dispatch(setCurrentFilm(adaptFilmToClient(data)));
+    try {
+      const {data} = await api.get(`${APIRoute.Films}/${id}`);
+      dispatch(setCurrentFilm(adaptFilmToClient(data)));
+    } catch (error) {
+      dispatch(redirectToRoute(AppRoute.NotFound));
+    }
+
   };
 
 export const getSimilarFilms = (id: string | undefined): ThunkActionResult =>
@@ -54,13 +63,11 @@ export const getComments = (id: string | undefined): ThunkActionResult =>
     dispatch(setComments(data));
   };
 
-export const pushComment = ({id, comment,rating}: CommentPost): ThunkActionResult =>
+export const pushComment = ({id, comment, rating}: CommentPost): ThunkActionResult =>
   async (dispatch, _getState, api) => {
-    await api.post(`${APIRoute.CommentPost}${id}`, {comment,rating})
-      .then((resp)=>{
-        // eslint-disable-next-line no-console
-        console.log(resp);
-        if(resp.status === 200){
+    await api.post(`${APIRoute.CommentPost}${id}`, {comment, rating})
+      .then((resp) => {
+        if (resp.status === 200) {
           dispatch(setCommentSubmitted(true));
         }
       });
