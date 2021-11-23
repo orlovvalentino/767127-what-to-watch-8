@@ -9,6 +9,7 @@ const initialState = {
   currentFilm: undefined,
   filteredFilms: [],
   similarFilms:[],
+  favoriteFilms:[],
   authorizationStatus:false,
   comments:[],
   commentSubmitted:false,
@@ -26,6 +27,8 @@ const reducer = (state: State = initialState, action: Actions): State => {
       return {...state, filteredFilms: action.payload};
     case ActionType.SetSimilarFilms:
       return {...state, similarFilms: action.payload};
+    case ActionType.SetFavoriteFilms:
+      return {...state, favoriteFilms: action.payload};
     case ActionType.SetCountFilmsInList:
       return {...state, countFilmsInList: action.payload};
     case ActionType.SetAuthorizationStatus:

@@ -7,6 +7,7 @@ export type State = {
   films: Films,
   currentFilm?: Film,
   similarFilms?:Films,
+  favoriteFilms?:Films,
   filteredFilms:Films,
   authorizationStatus:boolean,
   comments?:Comments,

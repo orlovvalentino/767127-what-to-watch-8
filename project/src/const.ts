@@ -14,8 +14,9 @@ export enum AppRoute {
 export enum APIRoute {
   Films = '/films',
   Login = '/login',
-  Comments='/comments',
-  CommentPost='/comments/'
+  Comments = '/comments',
+  CommentPost = '/comments/',
+  FavoriteFilms = '/favorite'
 }
 
 export const stars = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];

@@ -9,6 +9,7 @@ import {Link} from 'react-router-dom';
 import {State} from '../../types/state';
 import {connect, ConnectedProps} from 'react-redux';
 import Preloader from '../preloader/preloader';
+import AddToFavorite from '../add-to-favorite/add-to-favorite';
 
 const mapStateToProps = ({currentFilm, similarFilms,authorizationStatus}: State) => ({
   currentFilm,
@@ -79,12 +80,7 @@ function FilmPage(props: ConnectedComponentProps): JSX.Element {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                </button>
+                <AddToFavorite id={film.id}/>
                 {authorizationStatus ? <Link className="btn film-card__button" to={`/films/${id}/review`}>Add review</Link> : ''}
               </div>
             </div>

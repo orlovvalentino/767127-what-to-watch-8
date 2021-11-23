@@ -5,6 +5,7 @@ import {State} from '../../types/state';
 import {connect, ConnectedProps} from 'react-redux';
 import ShowMoreButton from '../show-more-button/show-more-button';
 import Header from '../header/header';
+import AddToFavorite from '../add-to-favorite/add-to-favorite';
 
 const mapStateToProps = ({genre,films,filteredFilms,countFilmsInList}: State) => ({
   genre,
@@ -61,12 +62,7 @@ function HomePage(props: ConnectedComponentProps): JSX.Element {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                </button>
+                <AddToFavorite id={moviePromo.id}/>
               </div>
             </div>
           </div>

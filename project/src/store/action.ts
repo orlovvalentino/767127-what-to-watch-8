@@ -44,6 +44,11 @@ export const setSimilarFilms = (films: Films) => ({
   payload: films,
 } as const);
 
+export const setFavoriteFilms = (films: Films) => ({
+  type: ActionType.SetFavoriteFilms,
+  payload: films,
+} as const);
+
 export const setComments = (comments: Comments) => ({
   type: ActionType.SetComments,
   payload: comments,

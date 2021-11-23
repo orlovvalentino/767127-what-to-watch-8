@@ -10,6 +10,7 @@ import {
   setAuthorizationStatus,
   redirectToRoute,
   setSimilarFilms,
+  setFavoriteFilms,
   setComments, setCommentSubmitted
 } from '../store/action';
 
@@ -22,6 +23,7 @@ export enum ActionType {
   SetAuthorizationStatus='user/SetAuthorizationStatus',
   RedirectToRoute = 'player/redirectToRoute',
   SetSimilarFilms = 'player/setSimilarFilms',
+  SetFavoriteFilms = 'player/setFavoriteFilms',
   SetComments = 'player/setComments',
   SetCommentSubmitted = 'player/setCommentSubmitted',
 }
@@ -35,6 +37,7 @@ export type Actions =
   | ReturnType<typeof setAuthorizationStatus>
   | ReturnType<typeof redirectToRoute>
   | ReturnType<typeof setSimilarFilms>
+  | ReturnType<typeof setFavoriteFilms>
   | ReturnType<typeof setComments>
   | ReturnType<typeof setCommentSubmitted>;
 

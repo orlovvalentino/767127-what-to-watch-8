@@ -1,16 +1,28 @@
 import ListMovies from '../list-movies/list-movies';
-import {Films} from '../../types/films';
+import {State} from '../../types/state';
+import Preloader from '../preloader/preloader';
+import {connect, ConnectedProps} from 'react-redux';
 
-type MyListType ={
-  films:Films
-}
+const mapStateToProps = ({favoriteFilms}: State) => ({
+  favoriteFilms,
+});
 
-function MyList({films}:MyListType): JSX.Element {
+const connector = connect(mapStateToProps, {});
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type ConnectedComponentProps = PropsFromRedux;
+
+function MyList(props: ConnectedComponentProps): JSX.Element {
+  const {favoriteFilms} = props;
+
+  if (!favoriteFilms) {
+    return <Preloader/>;
+  }
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
         <div className="logo">
-          <a href="main.html" className="logo__link">
+          <a href="/" className="logo__link">
             <span className="logo__letter logo__letter--1">W</span>
             <span className="logo__letter logo__letter--2">T</span>
             <span className="logo__letter logo__letter--3">W</span>
@@ -35,13 +47,13 @@ function MyList({films}:MyListType): JSX.Element {
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <div className="catalog__films-list">
-          <ListMovies films={films}/>
+          <ListMovies films={favoriteFilms}/>
         </div>
       </section>
 
       <footer className="page-footer">
         <div className="logo">
-          <a href="main.html" className="logo__link logo__link--light">
+          <a href="/" className="logo__link logo__link--light">
             <span className="logo__letter logo__letter--1">W</span>
             <span className="logo__letter logo__letter--2">T</span>
             <span className="logo__letter logo__letter--3">W</span>
@@ -55,5 +67,5 @@ function MyList({films}:MyListType): JSX.Element {
     </div>
   );
 }
-
-export default MyList;
+export {MyList};
+export default connector(MyList);
