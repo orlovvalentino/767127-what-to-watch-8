@@ -1,7 +1,7 @@
 import {Film} from '../../types/films';
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import VideoPlayer from '../video-player/video-player';
-import {useState} from 'react';
+import {MouseEvent, useState} from 'react';
 
 type MovieItemProps={
   film: Film,
@@ -11,6 +11,7 @@ let timeOut: ReturnType<typeof setTimeout>;
 function MovieItem({film}:MovieItemProps):JSX.Element{
   const [isActive,setIsActive] = useState(false);
   const {id,name} = film;
+  const history = useHistory();
 
   function handleVideoHover(){
     timeOut = setTimeout( ()=> {
@@ -29,7 +30,12 @@ function MovieItem({film}:MovieItemProps):JSX.Element{
       onMouseLeave={handleVideoHoverLeave}
     >
 
-      <div className="small-film-card__image">
+      <div
+        className="small-film-card__image"
+        onClick={(e: MouseEvent<HTMLDivElement>) => {
+          e.preventDefault();
+          history.push(`/films/${id}`);}}
+      >
         <VideoPlayer
           film={film}
           play={isActive}

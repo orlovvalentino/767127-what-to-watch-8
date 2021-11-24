@@ -14,7 +14,7 @@ function VideoPlayer({film,play}: PropsType): JSX.Element {
       if(videoRef.current) {
         videoRef.current.play()
           .catch(()=> {
-            throw new Error('Problem with video');
+            // throw new Error('Problem with video');
           });
       }
     }else{

@@ -10,10 +10,10 @@ import {
   setSimilarFilms,
   setComments,
   setCommentSubmitted,
-  setFavoriteFilms
+  setFavoriteFilms, getPromoFilm
 } from './action';
 import {APIRoute, AppRoute} from '../const';
-import {ServerFilms} from '../types/serverFilms';
+import {ServerFilms,ServerFilm} from '../types/serverFilms';
 import {adaptFilmsToClient, adaptFilmToClient} from '../services/adapter';
 import {CommentPost} from '../types/comments';
 
@@ -23,6 +23,11 @@ export const fetchFilmsAction = (): ThunkActionResult =>
     const {data} = await api.get<ServerFilms>(APIRoute.Films);
     dispatch(getListFilms(adaptFilmsToClient(data)));
     dispatch(setFilteredFilms(adaptFilmsToClient(data)));
+  };
+export const fetchPromoFilmAction = (): ThunkActionResult =>
+  async (dispatch, _getState, api): Promise<void> => {
+    const {data} = await api.get<ServerFilm>(APIRoute.Promo);
+    dispatch(getPromoFilm(adaptFilmToClient(data)));
   };
 
 export const checkAuthAction = (): ThunkActionResult =>

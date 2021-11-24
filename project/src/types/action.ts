@@ -4,6 +4,7 @@ import {State} from './state';
 import {
   changeGenre,
   getListFilms,
+  getPromoFilm,
   setCurrentFilm,
   setFilteredFilms,
   setCountFilmsInList,
@@ -17,6 +18,7 @@ import {
 export enum ActionType {
   ChangeGenre = 'player/changeGenre',
   GetListFilms = 'player/getListFilms',
+  GetPromoFilm = 'player/getPromoFilm',
   SetCurrentFilm = 'player/setCurrentFilm',
   SetFilteredFilms ='player/setFilteredFilms',
   SetCountFilmsInList = 'player/SetCountFilmsInList',
@@ -31,6 +33,7 @@ export enum ActionType {
 export type Actions =
   | ReturnType<typeof changeGenre>
   | ReturnType<typeof getListFilms>
+  | ReturnType<typeof getPromoFilm>
   | ReturnType<typeof setCurrentFilm>
   | ReturnType<typeof setFilteredFilms>
   | ReturnType<typeof setCountFilmsInList>

@@ -5,6 +5,7 @@ export type State = {
   genre: string,
   countFilmsInList:number,
   films: Films,
+  filmPromo?:Film,
   currentFilm?: Film,
   similarFilms?:Films,
   favoriteFilms?:Films,

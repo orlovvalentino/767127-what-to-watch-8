@@ -6,10 +6,12 @@ import {connect, ConnectedProps} from 'react-redux';
 import ShowMoreButton from '../show-more-button/show-more-button';
 import Header from '../header/header';
 import AddToFavorite from '../add-to-favorite/add-to-favorite';
+import Preloader from '../preloader/preloader';
 
-const mapStateToProps = ({genre,films,filteredFilms,countFilmsInList}: State) => ({
+const mapStateToProps = ({genre,films,filteredFilms,countFilmsInList,filmPromo}: State) => ({
   genre,
   films,
+  filmPromo,
   filteredFilms,
   countFilmsInList,
 });
@@ -20,16 +22,18 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 type ConnectedComponentProps = PropsFromRedux;
 
 function HomePage(props: ConnectedComponentProps): JSX.Element {
-  const {films , filteredFilms,countFilmsInList}= props;
-  const moviePromo = films[0];
+  const {filteredFilms,countFilmsInList,filmPromo:moviePromo}= props;
 
   const history = useHistory();
+  if (!moviePromo) {
+    return <Preloader/>;
+  }
 
   return (
     <>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src={moviePromo.backgroundImage} alt={moviePromo.name}/>
+          <img src={moviePromo?.backgroundImage} alt={moviePromo?.name}/>
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -39,30 +43,30 @@ function HomePage(props: ConnectedComponentProps): JSX.Element {
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src={moviePromo.posterImage}
-                alt={moviePromo.name}
+              <img src={moviePromo?.posterImage}
+                alt={moviePromo?.name}
                 width="218" height="327"
               />
             </div>
             <div className="film-card__desc">
-              <h2 className="film-card__title">{moviePromo.name}</h2>
+              <h2 className="film-card__title">{moviePromo?.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{moviePromo.genre}</span>
-                <span className="film-card__year">{moviePromo.released}</span>
+                <span className="film-card__genre">{moviePromo?.genre}</span>
+                <span className="film-card__year">{moviePromo?.released}</span>
               </p>
 
               <div className="film-card__buttons">
                 <button
                   className="btn btn--play film-card__button"
                   type="button"
-                  onClick={() => {history.push(`/player/${moviePromo.id}`);}}
+                  onClick={() => {history.push(`/player/${moviePromo?.id}`);}}
                 >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
                 </button>
-                <AddToFavorite id={moviePromo.id}/>
+                <AddToFavorite id={moviePromo?.id}/>
               </div>
             </div>
           </div>

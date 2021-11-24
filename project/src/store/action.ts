@@ -13,6 +13,10 @@ export const getListFilms = (films: Films) => ({
   type: ActionType.GetListFilms,
   payload: films,
 } as const);
+export const getPromoFilm = (film: Film) => ({
+  type: ActionType.GetPromoFilm,
+  payload: film,
+} as const);
 
 export const setCurrentFilm = (film: Film) => ({
   type: ActionType.SetCurrentFilm,
