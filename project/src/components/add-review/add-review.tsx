@@ -49,14 +49,14 @@ function AddReview(props: PropsFromRedux): JSX.Element {
   }
 
   useEffect(() => {
-    if(commentSubmitted === true){
+    if(commentSubmitted){
       setIsActive(true);
       if(film){
         history.push(`/films/${film.id}`);
       }
     }
     updateCommentSubmitted();
-    return function cleanup() {
+    return function () {
       updateCommentSubmitted();
     };
   }, [commentSubmitted]);

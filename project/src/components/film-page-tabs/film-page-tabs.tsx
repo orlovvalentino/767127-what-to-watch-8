@@ -11,7 +11,7 @@ type PropsType = {
 
 function FilmPageTabs({film}: PropsType): JSX.Element {
   const {id, tabs} = useParams<{ id?: string, tabs?: string }>();
-  const [currentTab, setCurrntTab] = useState(tabs);
+  const [currentTab, setCurrentTab] = useState(tabs);
 
   function getActiveClass(urlParam?: string): string {
     return (urlParam === currentTab ? 'film-nav__item--active' : '');
@@ -21,7 +21,7 @@ function FilmPageTabs({film}: PropsType): JSX.Element {
     if(tabs){
       return;
     }
-    setCurrntTab(undefined);
+    setCurrentTab(undefined);
   }, [id,tabs]);
 
   return (
@@ -31,7 +31,7 @@ function FilmPageTabs({film}: PropsType): JSX.Element {
           <li className={`film-nav__item ${getActiveClass()}`}>
             <Link
               onClick={(e: MouseEvent<HTMLAnchorElement>) => {
-                setCurrntTab(undefined);
+                setCurrentTab(undefined);
               }}
               to={`/films/${id}`}
               className="film-nav__item film-nav__link"
@@ -42,7 +42,7 @@ function FilmPageTabs({film}: PropsType): JSX.Element {
           <li className={`film-nav__item ${getActiveClass('details')}`}>
             <Link
               onClick={(e: MouseEvent<HTMLAnchorElement>) => {
-                setCurrntTab('details');
+                setCurrentTab('details');
               }}
               to={`/films/${id}/details`}
               className="film-nav__item film-nav__link"
@@ -53,7 +53,7 @@ function FilmPageTabs({film}: PropsType): JSX.Element {
           <li className={`film-nav__item ${getActiveClass('reviews')}`}>
             <Link
               onClick={(e: MouseEvent<HTMLAnchorElement>) => {
-                setCurrntTab('reviews');
+                setCurrentTab('reviews');
               }}
               to={`/films/${id}/reviews`}
               className="film-nav__item film-nav__link"

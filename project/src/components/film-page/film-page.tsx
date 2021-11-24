@@ -19,13 +19,13 @@ const mapStateToProps = ({currentFilm, similarFilms,authorizationStatus}: State)
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
   getFilm(id: string | undefined) {
-    (dispatch as ThunkAppDispatch)(getCurrentFilm(id));
+    dispatch(getCurrentFilm(id));
   },
   getSimilar(id: string | undefined) {
-    (dispatch as ThunkAppDispatch)(getSimilarFilms(id));
+    dispatch(getSimilarFilms(id));
   },
   getCommentsById(id: string | undefined) {
-    (dispatch as ThunkAppDispatch)(getComments(id));
+    dispatch (getComments(id));
   },
 });
 const connector = connect(mapStateToProps, mapDispatchToProps);
