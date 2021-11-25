@@ -29,10 +29,10 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 type ConnectedComponentProps = PropsFromRedux;
 
 function getActiveClass(item:string, genre:string){
-  return item.toLowerCase()===genre ? 'catalog__genres-item--active': '';
+  return item.toLowerCase()===genre.toLowerCase() ? 'catalog__genres-item--active': '';
 }
 function getHref(item:string){
-  if(item === 'all genres'){
+  if(item.toLowerCase() === 'all genres'){
     return '/';
   }
   return item.toLowerCase();

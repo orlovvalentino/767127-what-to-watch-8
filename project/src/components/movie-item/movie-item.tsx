@@ -1,7 +1,7 @@
 import {Film} from '../../types/films';
 import {Link, useHistory} from 'react-router-dom';
 import VideoPlayer from '../video-player/video-player';
-import {MouseEvent, useState} from 'react';
+import {MouseEvent, useEffect, useState} from 'react';
 
 type MovieItemProps={
   film: Film,
@@ -12,6 +12,7 @@ function MovieItem({film}:MovieItemProps):JSX.Element{
   const [isActive,setIsActive] = useState(false);
   const {id,name} = film;
   const history = useHistory();
+  useEffect( () => () => clearTimeout(timeOut), [] );
 
   function handleVideoHover(){
     timeOut = setTimeout( ()=> {

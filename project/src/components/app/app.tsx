@@ -38,7 +38,7 @@ function App(props: PropsFromRedux): JSX.Element {
         </PublicRoute>
         <PrivateRoute
           exact
-          path={AppRoute.Mylist}
+          path={AppRoute.MyList}
           render={() => <MyList/>}
         >
         </PrivateRoute>

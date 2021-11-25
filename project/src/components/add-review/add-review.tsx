@@ -59,7 +59,7 @@ function AddReview(props: PropsFromRedux): JSX.Element {
     return function () {
       updateCommentSubmitted();
     };
-  }, [commentSubmitted]);
+  }, [commentSubmitted,film,history,updateCommentSubmitted]);
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();

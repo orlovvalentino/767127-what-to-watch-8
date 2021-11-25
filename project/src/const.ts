@@ -1,9 +1,9 @@
-export const BASE_GENRE = 'all genres';
+export const BASE_GENRE = 'All genres';
 export const COUNT_FILMS_IN_LIST = 8;
 
 export enum AppRoute {
   Login = '/login',
-  Mylist = '/mylist',
+  MyList = '/mylist',
   FilmPage = '/films/:id/:tabs?',
   FilmAddReview = '/films/:id/review',
   Player = '/player/:id',

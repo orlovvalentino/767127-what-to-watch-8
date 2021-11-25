@@ -41,7 +41,7 @@ function FilmPage(props: ConnectedComponentProps): JSX.Element {
     getFilm(id);
     getSimilar(id);
     getCommentsById(id);
-  }, [id]);
+  }, [id,getCommentsById,getFilm,getSimilar]);
 
   if (!film) {
     return <Preloader/>;
